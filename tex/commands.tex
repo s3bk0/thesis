@@ -1,0 +1,255 @@
+%%%================================================================
+%%%================      new commands      =======================
+%%%================================================================
+
+% \newcommand\hcancel[2][black]{\setbox0=\hbox{$#2$}%
+% \rlap{\raisebox{.45\ht0}{\textcolor{#1}{\rule{\wd0}{1pt}}}}#2} 
+
+
+
+%
+%%% ---------------------- Referencing-------------------------
+
+% Don't need those if \usepackage{cleveref} --> \cref{xxx}
+% \newcommand{\tabr}[1]{Table~\ref{#1}}
+% \newcommand{\eqr}[1]{Eq.~(\ref{#1})}
+% \newcommand{\fir}[1]{Fig.~\ref{#1}}
+% \newcommand{\secr}[1]{Sec.~\ref{#1}}
+% \newcommand{\apr}[1]{App.~\ref{#1}}
+% \newcommand{\chr}[1]{Ch.~\ref{#1}}
+
+% % % Theorem environments
+% % 
+% \newtheorem{theorem}{Theorem}
+% \newtheorem{prop}{Proposition}
+% \newtheorem{definition}{Definition}
+% \newtheorem{lemma}{Lemma}
+% \newtheorem{protocol}{Protocol}
+% \newtheorem{conjecture}{Conjecture}
+% % 
+% \newtheorem{cor}{Corollary}
+% \newtheorem*{remark}{Remark}
+
+%%% -------------------------- MATLAB, code and TODO environment
+\newcommand{\matlab}{MATLAB}
+\newcommand{\code}[1]{\texttt{#1}}
+% \newcommand{\todo}[1]{\textcolor{red}{\textbf{TODO:}} \emph{\color{red}#1}}
+% makes the whole column texttt style
+\newcolumntype{C}{>{\collectcell\code}c<{\endcollectcell}}
+
+% 
+% %%% ---------------------- Custom Colors-------------------------
+% 
+\definecolor{rwthBlue100}{cmyk}{1,0.5,0,0}
+\definecolor{rwthBlue75}{cmyk}{0.75,0.38,0,0}
+\definecolor{rwthBlue50}{cmyk}{0.45,0.14,0,0}
+\definecolor{rwthBlue25}{cmyk}{0.23,0.07,0,0}
+\definecolor{rwthBlue10}{cmyk}{0.09,0.03,0,0}
+\definecolor{DarkGray}{gray}{0.25} 
+\definecolor{MidGray}{gray}{0.38} 
+\definecolor{NeutralGray}{gray}{0.5}
+\definecolor{LightGray}{gray}{0.7}
+\definecolor{lightGray}{gray}{0.85}
+\definecolor{DarkRed}{rgb}{0.7,0,0}
+\definecolor{DarkBlue}{rgb}{0,0,0.5}
+\definecolor{SteelBlue}{rgb}{0,0.4,0.6}
+\definecolor{Orange}{rgb}{0.7,0.5,0}
+\definecolor{Violette}{rgb}{0.5,0,0.5}
+\definecolor{Sand}{rgb}{0.84,0.8,0.55}
+\definecolor{niceblue}{rgb}{0.33,0.5,0.8}
+\definecolor{OliveGreen}{RGB}{0,102,102}
+\definecolor{NiceGreen}{RGB}{0,153,72}
+\definecolor{LightGreen}{RGB}{0,200,72}
+\definecolor{newblue}{RGB}{40,210,251}
+\definecolor{lightblue}{RGB}{179,231,251}
+\definecolor{steelblue}{RGB}{70,130,180}
+\definecolor{cred}{RGB}{179,28,28}
+% listings color
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+\usepackage{tcolorbox}
+% 
+% \tcbset{
+%     coltitle=black,fonttitle=\bfseries,
+%     colback=orange!7!white,colframe=gray!25!white,width=0.95\textwidth,valign=center,
+%     before=\par\bigskip\centering,after=\par
+%     }
+% 
+% %%% --------------------- Vector Notation -------------------
+\newcommand{\uline}[1]{\underline{#1}}
+\newcommand{\uuline}[1]{\underline{\underline{#1}}}
+% 
+% %%% ---------------------- Operators -------------------------
+% %Use either \DeclareMathOperator or \operatorname http://tex.stackexchange.com/questions/84302/what-is-the-difference-of-mathop-operatorname-and-declaremathoperator
+% 
+% \DeclareMathOperator{\id}{id}
+% \DeclareMathOperator{\tr}{tr}
+% \DeclareMathOperator{\rg}{range}
+% \DeclareMathOperator{\supp}{supp}
+% \DeclareMathOperator{\sign}{sign}
+% \DeclareMathOperator{\im}{im}
+% \DeclareMathOperator{\poly}{poly}
+% \DeclareMathOperator{\var}{Var}
+% \DeclareMathOperator{\diag}{diag}
+% \DeclareMathOperator{\eig}{eig}
+% \DeclareMathOperator{\rank}{rank}
+% \DeclareMathOperator{\cov}{cov}
+% \DeclareMathOperator{\dist}{d}
+% \DeclareMathOperator{\spec}{spec}
+% \DeclareMathOperator{\trunc}{\upharpoonright}
+% 
+\newcommand{\mr}[1]{\mathrm{#1}}
+\newcommand{\rmd}{\mathrm{d}}
+\renewcommand{\dd}{\,\mathrm{d}}
+% \DeclareMathOperator{\landauO}{O}
+% % \newcommand{\trunc}[2]{#1_{\upharpoonright \mathnormal{#2}}} %truncation
+% \DeclareMathOperator{\cc}{c.c.}
+% \DeclareMathOperator{\hc}{h.c.}
+%  
+% %%% ---------------------- Others-------------------------
+% \newcommand{\ad}{^\dagger}
+% \newcommand{\restr}{\upharpoonright}
+% \DeclareMathOperator{\dunion}{\uplus}%Disjoint union
+% \DeclareMathOperator{\dUnion}{\biguplus}%Disjoint union
+% \renewcommand{\complement}{^{c}}
+% \DeclareMathOperator{\colonequiv}{:\!\Leftrightarrow}
+% 
+% \newcommand{\iprod}[2]{( #1, #2)}
+% \newcommand{\Iprod}[2]{\left( #1, #2 \right)}
+% 
+% \newcommand{\set}[1]{\{ #1  \}}
+% \newcommand{\Set}[1]{\left \{ #1 \right \}}
+% 
+\newcommand{\dt}[1]{\frac{\partial #1}{\partial t}}
+\newcommand{\diff}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\ddiff}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\Ddiff}[3]{\frac{\partial^2 #1}{\partial #2 \partial #3}}
+% 
+% 
+% 
+% %%% ---------------------- brakets -----------------
+% %\usepackage{braket}
+% \renewcommand{\l}{\langle}
+% \renewcommand{\r}{\rangle}
+% \newcommand{\Ket}[1]{\left|{#1}\right\rangle}
+% \newcommand{\ket}[1]{|{#1}\rangle}
+% \newcommand{\Bra}[1]{\left\langle{#1}\right|}
+% \newcommand{\bra}[1]{\langle{#1}|}
+% \newcommand{\braket}[2]{\left\langle{#1}\middle|{#2}\right\rangle}
+% \newcommand{\ketn}[1]{| #1 \rangle}
+% \newcommand{\bran}[1]{\langle #1 |}
+% \newcommand{\braketn}[2]{\langle #1 \middle| #2 \rangle}
+% \newcommand{\ketbra}[2]{\ket{#1} \!\! \bra{#2}}
+% \newcommand{\ketbran}[2]{\ketn{#1} \! \bran{#2}}
+% \newcommand{\proj}[1]{\ket{#1}\bra{#1}}
+% \newcommand{\Proj}[1]{\Ket{#1}\Bra{#1}}
+% \newcommand{\Sandwich}[3]
+%   {\left\langle  #1 \right| #2 \left| #3 \right\rangle}
+%   
+% \newcommand{\sandwich}[3]
+%   {\langle  #1 | #2 | #3 \rangle}
+%   
+% \newcommand{\Av}[1]{\left\langle #1 \right\rangle}
+% \newcommand{\av}[1]{\langle #1 \rangle}
+% \newcommand{\avb}[1]{\bigl\langle #1 \bigr\rangle}
+% \newcommand{\avB}[1]{\Bigl\langle #1 \Bigr\rangle}
+% 
+% %%% ----------------- norms ----------------------
+% \newcommand{\Norm}[1]{\left\Vert #1\right\Vert}
+% \newcommand{\norm}[1]{\Vert #1\Vert}
+% \newcommand{\normt}[1]{\boldsymbol{\vert} #1\boldsymbol{\vert}}
+% \newcommand{\normone}[1]{\| #1 \|_1}
+% \newcommand{\norminf}[1]{\| #1 \|_\infty}
+% \newcommand{\normuinv}[1]{||| #1 |||}
+% \newcommand{\hnorm}[1]{||| #1 |||}
+% \newcommand{\normb}[1]{\bigl\| #1 \bigr\|}
+% \newcommand{\normB}[1]{\Bigl\| #1 \Bigr\|}
+% \newcommand{\abs}[1]{\lvert #1\rvert}
+% \newcommand{\Abs}[1]{\left\lvert #1\right\rvert}
+% 
+% 
+% %%% ---------------------- Letters-----------------
+% 
+
+% \newcommand{\ee}{\mathrm{e}}
+% \newcommand{\ii}{\mathrm{i}}
+% \newcommand{\dd}{\mathrm{d}}
+% 
+% 
+% \newcommand{\GG}{\mathbf{G}}
+% \newcommand{\LL}{\mathbf{L}}
+% \newcommand{\VV}{\mathbf{V}}
+% 
+% 
+% \newcommand{\qb}{\mathbf{q}}
+% \newcommand{\pb}{\mathbf{p}}
+% \newcommand{\rb}{\mathbf{r}}
+% \renewcommand{\sb}{\mathbf{s}}
+% \newcommand{\tb}{\mathbf{t}}
+% \newcommand{\xb}{\mathbf{x}}
+% \newcommand{\yb}{\mathbf{y}}
+% 
+% 
+% \newcommand{\jc}{\mathcal{j}}
+% \newcommand{\Ac}{\mathcal{A}}
+% \newcommand{\Bc}{\mathcal{B}}
+% \newcommand{\Cc}{\mathcal{C}}
+% \newcommand{\Dc}{\mathcal{D}}
+% \newcommand{\Ec}{\mathcal{E}}
+% \newcommand{\Fc}{\mathcal{F}}
+% \newcommand{\Gc}{\mathcal{G}}
+% \newcommand{\Hc}{\mathcal{H}}
+% \newcommand{\Ic}{\mathcal{I}}
+% \newcommand{\Jc}{\mathcal{J}}
+% \newcommand{\Kc}{\mathcal{K}}
+% \newcommand{\Lc}{\mathcal{L}}
+% \newcommand{\Mc}{\mathcal{M}}
+% \newcommand{\Nc}{\mathcal{N}}
+% \newcommand{\Oc}{\mathcal{O}}
+% \newcommand{\Pc}{\mathcal{P}}
+% \newcommand{\Qc}{\mathcal{Q}}
+% \newcommand{\Rc}{\mathcal{R}}
+% \newcommand{\Sc}{\mathcal{S}}
+% \newcommand{\Tc}{\mathcal{T}}
+% \newcommand{\Vc}{\mathcal{V}}
+% \newcommand{\Uc}{\mathcal{U}}
+% \newcommand{\Wc}{\mathcal{W}}
+% \newcommand{\Xc}{\mathcal{X}}
+% \newcommand{\Yc}{\mathcal{Y}}
+% 
+% \newcommand{\Ab}{\mathbb{A}}
+% \newcommand{\Cb}{\mathbb{C}}
+% \newcommand{\Eb}{\mathbb{E}}
+% \newcommand{\Lb}{\mathbb{L}}
+% \newcommand{\Nb}{\mathbb{N}}
+% \newcommand{\Pb}{\mathbb{P}}
+% \newcommand{\Qb}{\mathbb{Q}}
+% \newcommand{\Rb}{\mathbb{R}}
+% \newcommand{\Tb}{\mathbb{T}}
+% \newcommand{\Zb}{\mathbb{Z}}
+% \newcommand{\idb}{\mathbb{1}}
+% 
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+% % Specific to this project
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+% 
+% % Complexity classes
+% \newcommand{\sat}{\textsf{SAT}}
+% \newcommand{\qsat}{\textsf{QSAT}}
+% 
+% \newcommand{\p}{\textsf{P}}
+% \newcommand{\bpp}{\textsf{BPP}}
+% \newcommand{\np}{\textsf{NP}}
+% 
+% \renewcommand{\sp}{\#\textsf{P}}
+% 
+% \newcommand{\bqp}{\textsf{BQP}}
+% \newcommand{\qma}{\textsf{QMA}}
+% \newcommand{\ma}{\textsf{MA}}
+% 
+% %%% -------------------------- Commments ----------------------------
+% 
+% \newcommand\contribution[1]{\emph{\textcolor{gray!40!black}{#1}}}
+% \newcommand{\ins}[1]{\textcolor{cred}{*** #1 ***}}
+

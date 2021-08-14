@@ -1,0 +1,27 @@
+\chapter*{Abstract}
+\todo{This is still the wrong abstract}
+
+In recent years, the experimental capability in realizing and exercising full
+control over multiple coupled quantum dots in semiconductor heterostructures
+has advanced to the point where tuning the dots to the few-electron regime
+required for quantum computation applications will become impractical to
+perform manually, establishing the demand for automated procedures in this
+area. Moreover, charge stability diagrams, which represent a crucial tool in
+the tuning of quantum dot systems, become increasingly complex to understand
+and analyze due to the growing number of parameters influencing their
+structure. The goal of this thesis is to take a first step towards a fully
+computer-automated implementation of the tuning process by focusing on the
+coarse tuning of the system to the zero-electron regime.
+
+I simulate charge diagrams of multiple coupled quantum dots in a linear array
+using a classical capacitive model, reproducing the honeycomb structure of
+double quantum dot charge diagrams. In order to automatically recognize the
+zero-electron regime in double-dot charge diagrams by identifying the charge
+transitions, I introduce a line detection algorithm using the Radon transform
+of the charge diagram able to detect lines even in noisy images by exploiting
+the fact that, in a suitable charge diagram detail, several transitions of the
+same kind and hence the same slope will show. The strong noise performance of
+the algorithm promises fast scan times during the tuning process. Finally, I
+present and test an algorithm that attempts to automatically tune a simulated
+double-dot system to the zero-electron regime using the line detection
+algorithm developed.

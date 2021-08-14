@@ -1,0 +1,181 @@
+In order to understand the complexity of the problem and the
+utilised solving method, it is reasonable to revisit some fundamental concepts
+in the following chapter. At the same time, a consistent notation is
+introduced. At first, the tensor formalism for elastic properties
+of rigid bodies is introduced. It should be noted in advance, that vectors are
+denoted by a single underline and tensors or
+tensor fields of higher order by a number of underlines corresponding to their
+order. \\ After that, elastic waves are derived and analysed
+further. This will be mostly based on \cite{GrossMarx2014}, if not otherwise
+stated.
+\todo{check if description still applies, citation?}
+
+\section{Elastic Properties of Materials}
+In the following, the formalism for bulk elastic properties of materials is
+introduced. As only small deformations are relevant for the considerations in
+this thesis, they are assumed to be in the regime of linear elastic behaviour,
+neglecting plastic or nonlinear behaviour.
+
+In one dimension this can be described simply by Hooke`s law, which states
+that a small displacement $\Delta l$ caused by a force $F$ is
+proportional to the displacement. Considering an object of length $l$ and
+cross-sectional area $A$, \textbf{stress} and \textbf{strain} can be defined as
+
+\begin{align}
+     & \text{Stress} \quad \quad \sigma := \frac{F}{A}
+     & \text{Strain} \quad \quad \epsilon := \frac{\Delta l}{l}
+\end{align}
+
+Hooke`s law can now be reformulated as
+\begin{equation}
+    \label{eq:HookStress1D}
+    \sigma = C\ \epsilon
+\end{equation}
+with \textbf{Young`s Modulus E} as proportional constant.
+
+\subsection{Stress Tensor}
+For finite size objects stress can be defined locally on
+infinitesimal, cubic volume elements. These volume elements get deformed by
+forces that are applied to the object. If we consider a general force
+$\Delta \underline{F}$ acting on a surface element $\Delta A$ we can always
+divide
+this force into a normal component $\Delta \underline{F}_n$ and two mutually
+perpendicular tangential components $\Delta \underline{F}_{t1}$ and
+$\Delta \underline{F}_{t2}$. This implies the general definition of the stress
+tensor
+as
+\begin{equation}
+    \sigma_{ij} = \frac{\text{force in direction i}}{\text{surface with normal
+            in direction j}}
+\end{equation}
+\todo{picture of stress definition?}
+whereas indices i and j denote denote one of the spatial directions x,y or z.
+If we claim the volume element to be static, it follows, that the normal forces
+on opposite sites and tangential forces on neighbouring sides equal each other.
+The latter can be expressed over $\sigma_{ij}=\sigma_{ji}$. This leaves 6
+independent components, the three normal stresses $\sigma_{ii}$ and the three
+shear stresses $\sigma_{ij}$.
+
+\subsection{Strain Tensor}
+Deformation of a three dimensional object can be described using the
+displacement field $\underline{u}(\underline{r}, t):=
+    \underline{r}^\prime-\underline{r}$,
+which defines a displacement vector for each point $\underline{r}$ in space in
+comparison to the deformed position $\underline{r}^\prime$. Local stress only
+relates to change in displacement relative to neighbouring positions which
+allows to consider the Taylor expansion in first order
+\begin{equation}
+    \underline{u}(\underline{r}+\Delta\underline{r}, t)
+    = \underline{u}(\underline{r}, t) +
+    \underline{\underline{\gradient}}u(\underline{r}, t)\ \Delta \underline{r}
+\end{equation}
+with the Jacobian matrix $(\underline{\underline{\gradient}}u )_{ij} =
+    \frac{\partial u_i}{\partial r_j}$. This in turn can be decomposed into a
+symmetric part and an antisymmetric part. The symmetric part is defined as
+strain tensor:
+\begin{equation}
+    \epsilon_{ij} = \frac{1}{2} \left(	 \frac{\partial u_i}{\partial r_j}
+    +\frac{\partial u_j}{\partial r_i} \right)
+\end{equation}
+It is a dimensionless measure for local deformation in contrast to the
+antisymmetric part, which represents local rotation.
+\todo{reference to lecture 2?}
+
+\subsection{Stress-Strain Relations}
+With stress and strain tensor introduced, equation \ref{eq:HookStress1D} can
+be generalised to three dimensions taking anisotropies of the material into
+account:
+\begin{align} \label{eq:HookStress3D}
+     & \sigma_{ij} =  C_{ijkl}\epsilon_{kl} \quad\quad\quad
+    \quad \quad \text{or}
+     & \uuline{\sigma} = \uuline{\uuline{C}} \cdot \uuline{\epsilon}
+\end{align}
+This defines the \textbf{Elasticity tensor} as order 4 tensor with unit force
+/ area. In general this tensor contains 81 components. However, stress and
+strain tensor are symmetric, so that $C_{ijkl} = C_{jikl} = C_{ijlk}$. This
+reduces the number of independent components to 36 and makes it possible to
+describe the Elasticity tensor as $6\cross6$ matrix. For this representation,
+the so called Voigt notation maps pairs of coefficients of elasticity, strain
+and stress tensor to a single index as in table \ref{tab:voigt}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{cccccc}
+        $xx \rightarrow 1$ & $yy \rightarrow 2$    & $zz \rightarrow 3$    &
+        $yz=zy
+        \rightarrow 4$     & $xz=zx \rightarrow 5$ & $xy=yx \rightarrow 6$
+    \end{tabular}
+    \caption{Voigt notation}
+    \label{tab:voigt}
+\end{table}
+This simplifies the notation of elasticity significantly, but it should be
+treated carefully. Tensors written in Voigt notation do not transform like
+vectors in each index.
+
+One can also proof, that $C_{ijkl} = C_{klij}$ considering elastic energy (see
+section 4.3.1 of \cite{GrossMarx2014}) which leads to 21 independent
+components. Further simplifications derive from crystal symmetry or
+limitations in anisotropy. In the following treatment, the material is assumed
+to be isotropic, which reduces the number of independent components to 2. These
+are typically introduced as Lamé constants $\lambda$ and $\mu$ defined by the
+relation
+\begin{equation} \label{eq:StressStrainAnis}
+    \sigma_{ij} = \lambda \delta_{ij} \epsilon_{kk} + 2\mu \epsilon_{ij}
+\end{equation}
+\todo{mention of einstein convention?}
+which derives from equation \ref{eq:HookStress3D} by regarding isotropy of the
+material \cite{kundu2012ultrasonic}. From this equation the elasticity tensor
+can be expressed by a simplified $6\cross6$ matrix as in:
+\begin{equation} \label{eq:StressStrainIso}
+    \uuline{\sigma} = \uuline{\uuline{C}}\cdot \uuline{\epsilon} =
+    \begin{pmatrix}
+        \lambda + 2\mu & \lambda        & \lambda        & 0    & 0    & 0
+        \\
+        \lambda        & \lambda + 2\mu & \lambda        & 0    & 0    & 0
+        \\
+        \lambda        & \lambda        & \lambda + 2\mu & 0    & 0    & 0
+        \\
+        0              & 0              & 0              & 2\mu & 0    & 0
+        \\
+        0              & 0              & 0              & 0    & 2\mu & 0
+        \\
+        0              & 0              & 0              & 0    & 0    & 2\mu
+        \\
+    \end{pmatrix}
+    \cdot
+    \begin{pmatrix}
+        \epsilon_1 \\ \epsilon_2 \\ \epsilon_3 \\ \epsilon_4 \\ \epsilon_5 \\
+        \epsilon_6 \\
+    \end{pmatrix}
+\end{equation}
+
+\section{Elastic Waves}
+This formalism can now be used to introduce elastic waves. Their existence and
+behaviour depends on the equations of motion of the regarded medium. To obtain
+these, we consider at first a small volume $\Delta V = \Delta x \Delta y
+    \Delta z$, that is subject to a stress $\sigma_{xx}(x)$ on the one side and
+to $\sigma_{xx}(x+\Delta x)$ on the other side. The resulting net force becomes
+thus
+\begin{equation}
+    \Delta F_x = \left[ \sigma_{xx}(x+\Delta x)- \sigma_{xx}(x) \right] \Delta
+    x \Delta y = \diff{\sigma_{xx}}{x} \Delta x \Delta y \Delta z
+\end{equation}
+by approximating $\sigma_{xx}(x+\Delta x)$ in first order and setting the frame
+of reference to the center of mass of the volume.
+The force leads to a displacement $u_x$ of the volume in x direction and equals the
+product of the mass $\rho\Delta x \Delta y \Delta z$ and acceleration in x
+direction $\ddiff{u_x}{x}$. This yields the one dimensional partial
+differential equation
+\begin{equation}
+    \rho \ddiff{u_x}{t} = \diff{\sigma_{xx}}{x}
+\end{equation}
+Assuming an isotropic material and using relation \ref{eq:HookStress3D} we
+get
+\begin{equation}
+    \rho \ddiff{u_x}{t} = C_{11} \diff{\epsilon_{xx}}{x} = C_{11}\ddiff{u_x}{x}
+\end{equation}
+In an anisotropic medium the other stress components need to be taken into
+account leading to the general differential equations
+\begin{equation}
+    \rho \ddiff{u_i}{t} = \diff{\sigma_{ij}}{x_j} = C_{ijkl}
+    \Ddiff{u_l}{x_j}{x_k}
+\end{equation}

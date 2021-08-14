@@ -1,0 +1,243 @@
+\documentclass[ twoside,openright,titlepage,numbers=noenddot,headinclude,
+             footinclude=true,cleardoublepage=empty,
+             BCOR=5mm,paper=a4,fontsize=12pt%
+            ]{scrreprt}
+
+
+\usepackage[parts,beramono,eulerchapternumbers,%
+    listings,manychapters,%
+    floatperchapter%
+    ]{classicthesis} 
+
+
+% \documentclass[twoside,openright,titlepage, headinclude]{book}
+% \input{style/classicthesis-config}
+% \renewcommand{\chapterNumber}{\fontsize{30}{0}\usefont{U}{eur}{b}{n}}
+%%% --------------- Workflow ---------------------
+\usepackage[colorinlistoftodos, color=lightblue]{todonotes}
+
+
+%%% --------------- Geometry  --------------------
+\usepackage[paper = a4paper% ,showframe
+        ]{geometry}
+% \usepackage[DIV=12]{typearea}
+% \usepackage[absolute]{textpos}
+
+%Zeileneinruecken am Anfang eines Absatzes Verhindern
+%\parindent0pt
+%\noindent %Einruecken eines einzelnen Absatzes verhindern.
+% \renewcommand{\baselinestretch}{1.05}
+% \linespread{1.5}
+
+%%% --------------- Meta language settings  --------------------
+
+
+% \usepackage[ngerman]{babel}
+\usepackage[english]{babel}
+
+%%% --------------- Font --------------------
+% \usepackage{fontspec}
+% \usepackage{wasysym}
+% \setmainfont{Century Schoolbook L}
+% \setsansfont{helvet}
+
+\usepackage{microtype}
+
+\usepackage{newcent,fouriernc} % Use together (Century Schoolbook + adapted version of Fourier)
+\usepackage[scaled = 0.93]{helvet}
+% \renewcommand*{\sfdefault}{helvet}
+
+
+%\usepackage{cite}
+%\usepackage{url}
+
+
+% Math font
+% \usepackage{fouriernc}
+
+% \usepackage{helvet} % Helvetica 
+% \usepackage{pxfonts} % combined text and formula package
+% \usepackage{mathpazo} % combined text and formula package
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+
+
+% -------------------Links ------------------------
+% ********************************************************************
+% Using PDFLaTeX
+% ********************************************************************
+\PassOptionsToPackage{hyperfootnotes=false,pdfpagelabels}{hyperref}
+    \usepackage{hyperref}  % backref linktocpage pagebackref
+% \pdfcompresslevel=9
+% \pdfadjustspacing=1 
+% \PassOptionsToPackage{pdftex}{graphicx}
+%     \usepackage{graphicx} 
+ 
+
+% ********************************************************************
+% Hyperreferences
+% ********************************************************************
+\hypersetup{%
+    %draft, % = no hyperlinking at all (useful in b/w printouts)
+    colorlinks=true, linktocpage=true, pdfstartpage=3, pdfstartview=FitV,%
+    % uncomment the following line if you want to have black links (e.g., for printing)
+    %colorlinks=false, linktocpage=false, pdfstartpage=3, pdfstartview=FitV, pdfborder={0 0 0},%
+    breaklinks=true, pdfpagemode=UseNone, pageanchor=true, pdfpagemode=UseOutlines,%
+    plainpages=false, bookmarksnumbered, bookmarksopen=true, bookmarksopenlevel=1,%
+    hypertexnames=true, pdfhighlight=/O,%nesting=true,%frenchlinks,%
+    urlcolor=webbrown, linkcolor=RoyalBlue, citecolor=webgreen, %pagecolor=RoyalBlue,%
+    %urlcolor=Black, linkcolor=Black, citecolor=Black, %pagecolor=Black,%
+    %pdftitle={\myTitle},%
+    %pdfauthor={\textcopyright\ \myName, \myUni, \myFaculty},%
+    %pdfsubject={},%
+    %pdfkeywords={},%
+    %pdfcreator={pdfLaTeX},%
+    %pdfproducer={LaTeX with hyperref and classicthesis}%
+}   
+
+
+%%% --------------- Mathe Pakete --------------------
+\usepackage{amsmath}
+% \usepackage{bbm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+% \usepackage{amsbsy,wasysym}
+\usepackage{mathtools}
+\newcommand{\bmmax}{3} % to resolve to many math alphabets error
+\usepackage{bm}
+%\usepackage{euscript}
+
+
+%%% --------------- Physik Pakete --------------------
+\usepackage{physics}    % braket
+\usepackage[separate-uncertainty = true]{siunitx}
+
+
+%%% --------------- Kopf und Fusszeilen und -noten --------------------%
+%\usepackage{fancyhdr}
+
+
+%Andere Nummerierungen als 1.2.3....
+\usepackage{enumerate}
+
+%%% --------------- %Bilder und Farbe --------------------%
+%\usepackage{floatflt}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{xcolor} % loading options here clashes with cleveref and epsfig, epstopdf
+%\usepackage{color}
+\usepackage{epsfig,epstopdf}
+\usepackage{cleveref}
+
+% %%% ---------------------- TikZ -------------------------
+% \usepackage{pgfplots}
+% \usetikzlibrary{pgfplots.groupplots}
+% \pgfplotsset{compat=1.11}
+% \usepgfplotslibrary{fillbetween}
+% 
+%\usepackage{tikz}
+%\usetikzlibrary{arrows}
+%   shapes,
+%   shapes.geometric,
+% %  shapes.arrows,
+% %  chains,
+% %  decorations.pathreplacing,
+% %  decorations.pathmorphing,
+%   positioning,
+% %  automata,
+% %  patterns, 
+%   fit,
+%   fadings,
+% %  backgrounds,
+% %  calc,
+%     pgfplots.groupplots,
+% %  3d
+% }
+ 
+% ****************************************************************************************************
+%  Setup floats: tables, (sub)figures, and captions
+% ****************************************************************************************************
+\usepackage{booktabs} % \toprule etc.
+\usepackage{collcell} % for verb columns
+\usepackage{rotating} % for sideways tables
+\usepackage{tabularx} % better tables
+% \setlength{\extrarowheight}{3pt} % increase table row height
+% \newcommand{\tableheadline}[1]{\multicolumn{1}{c}{\spacedlowsmallcaps{#1}}}
+% \newcommand{\myfloatalign}{\centering} % to be used with each float for alignment
+\usepackage{caption}%[font=small,labelfont=bf]{caption}
+\usepackage{subcaption}
+\captionsetup{subrefformat=parens}
+% Thanks to cgnieder and Claus Lahiri
+% http://tex.stackexchange.com/questions/69349/spacedlowsmallcaps-in-caption-label
+% [REMOVED DUE TO OTHER PROBLEMS, SEE ISSUE #82]    
+%\DeclareCaptionLabelFormat{smallcaps}{\bothIfFirst{#1}{~}\MakeTextLowercase{\textsc{#2}}}
+%\captionsetup{font=small,labelformat=smallcaps} % format=hang,
+% \captionsetup{font=small} % format=hang,
+% \usepackage{subfig}  
+% ****************************************************************************************************
+
+%%% --------------- Code environment --------------------
+\usepackage{listings,chngcntr} % chngcntr to be used together with \counterwithin{env}{section-env} or \counterwithout{env}{section-env}
+\AtBeginDocument{\counterwithin{lstlisting}{section}}
+%\usepackage{listings-ext}
+\usepackage[numbered]{matlab-prettifier}
+% \lstset{language=Matlab,%
+%     basicstyle=\ttfamily\scriptsize,
+%     escapeinside={(*@}{@*)},
+%     %morekeywords={matlab2tikz},
+%     keywordstyle=\color{black},%
+%     morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+%     emph=[1]{for,end,break,return,if,while,global,else},emphstyle=[1]\color{blue}, %some words to emphasise
+%     identifierstyle=\color{black},%
+%     stringstyle=\color{mylilas},
+%     commentstyle=\color{mygreen},%
+%     numbers=left,
+%     stepnumber=1,
+%     numbersep=10pt,
+%     tabsize=4,
+%     showspaces=false,
+%     showstringspaces=false,
+%     breaklines=true,%
+%     %numbers=left,%
+%     %numberstyle={\tiny \color{black}},% size of the numbers
+%     %numbersep=9pt, % this defines how far the numbers are from the text
+%     %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+% } % if not using matlab-prettifier
+
+
+
+%%% --------------- Quotes --------------------
+%\usepackage{relsize,etoolbox}% http://ctan.org/pkg/{relsize,etoolbox}
+%\AtBeginEnvironment{quote}{\smaller}% Step font down one size relative to current 
+
+% \usepackage{complexity}
+
+%%% --------------- Bibliography --------------------
+% \bibliographystyle{unsrt}
+% \usepackage[square]{natbib}
+% \renewcommand{\bibsection}{\chapter{\bibname}}
+% \usepackage{chapterbib}
+\usepackage[natbib=true,%
+			backend=biber,%
+			style=phys,%
+			citestyle=phys%,%
+			%sorting=ynt%
+			]{biblatex}
+\usepackage{csquotes}
+
+% %%% --------------- Titlepage--------------------
+% \usepackage{transparent} % CONFLICTS WITH TIKZLIBRARY FADINGS
+% \usepackage{eso-pic}
+% \AddToShipoutPicture*{
+%     \put(0,0){
+%         \parbox[b][\paperheight]{\paperwidth}{%
+%             \vfill
+%             \centering
+%             {\transparent{0.1}\includegraphics[width=0.4\paperwidth]{fig/LMU}\hspace{4em}\includegraphics[width=.4\paperwidth]{fig/FU_sw}}%
+%             \vfill
+%         }
+%     }
+% }

@@ -1,0 +1,53 @@
+\input{tex/header}
+\input{tex/commands}
+
+\addbibresource{tex/lit.bib}
+
+\begin{document}
+
+\pagenumbering{roman}
+
+\title{Phononic Bragg Reflectors for Thermal Isolation of Semiconductor Qubits}
+\author{Sebastian Kock}
+
+\hypersetup{
+  pdfauthor={Sebastian Kock},
+  pdftitle={Phononic Bragg Reflectors for Thermal Isolation of Semiconductor Qubits},
+  pdfsubject={Quantum Computing},
+  pdfkeywords={quantum information, bragg reflector, elastic wave, quantum computing, simulation}
+}
+
+
+\input{tex/titlepage}
+\input{tex/abstract}
+
+\tableofcontents
+
+\newpage
+\pagenumbering{arabic}
+
+\listoftodos
+
+\chapter{Introduction}
+\todo[inline]{Introduction to notation}
+\begin{itemize}
+  \item notation of vectors and tensors
+\end{itemize}
+%\input{tex/introduction}
+\chapter{Theory}
+\input{tex/theory}
+\chapter{Implementation}
+%\input{tex/analysis}
+\chapter{Analysis}
+%\input{tex/tuning}
+\chapter{Conclusion}
+%\input{tex/conclusion}
+
+\newpage
+\printbibliography[heading=bibintoc]
+\appendix
+%\input{tex/parameters}
+%\input{tex/tuning_simulations}
+%\input{tex/sourcecode}
+%\input{tex/authorship}
+\end{document}
