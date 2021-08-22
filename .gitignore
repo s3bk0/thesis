@@ -18,3 +18,5 @@ build/main.synctex.gz
 build/main.tdo
 build/main.toc
 indent.log
+tex/theory.tex
+.gitignore

@@ -1,4 +1,5 @@
-In order to understand the complexity of the problem and the
+In order to understand the complexity of the problem \todo{justification for
+    modelling with elastic waves} and the
 utilised solving method, it is reasonable to revisit some fundamental concepts
 in the following chapter. At the same time, a consistent notation is
 introduced. At first, the tensor formalism for elastic properties
@@ -31,7 +32,7 @@ Hooke`s law can now be reformulated as
     \label{eq:HookStress1D}
     \sigma = C\ \epsilon
 \end{equation}
-with \textbf{Young`s Modulus E} as proportional constant.
+with \textbf{Young`s Modulus C} as proportional constant.
 
 \subsection{Stress Tensor}
 For finite size objects stress can be defined locally on
@@ -196,6 +197,7 @@ account leading to the general wave equation
 % into equation \ref{eq:wave_eq} and
 
 \subsection{Solution for Isotropic Materials}
+\label{sec:IsoSolution}
 In the following analysis, only isotropic media will be considered. In this
 case the isotropic stress strain relation, equation
 \ref{eq:StressStrainIso}, can be inserted to the wave equation which
@@ -231,22 +233,22 @@ $\beta$.
 
 In analogy to electromagnetic waves we can now make the harmonic
 plane wave ansatz $\Phi(\uline{x}, t)= u_L\
-    e^{i(\uline{k}^\Vert \uline{x}-\omega t)}$ and $\uline{\Psi}(\uline{x}, t)
+    e^{i(\uline{k}_L \uline{x}-\omega t)}$ and $\uline{\Psi}(\uline{x}, t)
     =
-    \uline{u}_T \ e^{i(\uline{k}^\bot\uline{x}-\omega t)}$ with arbitrary
+    \uline{u}_T \ e^{i(\uline{k}_T\uline{x}-\omega t)}$ with arbitrary
 amplitudes $u_L\in\mathbb{C}$ and $\uline{u}_T\in \mathbb{C}^3$.
 At this, the vector
 $\uline{k}=\frac{2\pi}{\lambda}$ denotes the wave vector defined over the
 wavelength $\lambda$ and $\omega$ is the circular frequency defined over the
 oscillation frequency $f$ with	$\omega = 2 \pi f$. The differentiation between
-$\uline{k}^\Vert$ and $\uline{k}^\bot$ is necessary because of the different
+$\uline{k}_L$ and $\uline{k}_T$ is necessary because of the different
 phase velocities for the elastic potentials resulting in different wave numbers
-according to $v_{ph} = \frac{\omega}{|\uline{k}|}$.
+according to $c = \frac{\omega}{|\uline{k}|}$.
 
 Substituting the wave ansätze into equation \ref{eq:Helmholtz}, we get
 \begin{equation}
-    \uline{u} = u_L \uline{k}\	e^{i(\uline{k}^\Vert\uline{x}-\omega t)}
-    + \uline{k} \cross \uline{u}_T\ e^{i(\uline{k}^\bot\uline{x}-\omega t)}
+    \uline{u} = u_L \uline{k}\	e^{i(\uline{k}_L\uline{x}-\omega t)}
+    + \uline{k} \cross \uline{u}_T\ e^{i(\uline{k}_T\uline{x}-\omega t)}
 \end{equation}
 Here we can see now, that the elastic potential $\Phi$ is responsible for waves
 with longitudinal polarisation and $\uline{\Psi}$ for waves with transversal
@@ -254,10 +256,10 @@ propagation. Furthermore we can identify an orthonormal polarisation basis
 depending on the propagation direction $\uline{\hat{k}} =
     \frac{\uline{k}}{|\uline{k}|}$ so that $\uline{u}$ decomposes to
 \begin{equation}
-    \uline{u} = a_L \ \uline{p}_L\	e^{i(\uline{k}^\Vert\uline{x}-\omega
+    \uline{u} = a_L \ \uline{p}_L\	e^{i(\uline{k}_L\uline{x}-\omega
             t)}
     + (a_{TH}\ \uline{p}_{TH} + a_{TV}\ \uline{p}_{TV})\
-    e^{i(\uline{k}^\bot\uline{x}-\omega t)}
+    e^{i(\uline{k}_T\uline{x}-\omega t)}
 \end{equation}
 In gerneral, the polarisation vector for longitudinal polarisation
 $\uline{p}_L$ is fixed to be $\uline{\vec{k}}$. If scattering at an interface
@@ -273,7 +275,132 @@ the components. However, it should be noted, that this is merely convenient for
 calculation and that the physical wave behaves like the real part of the shown
 equations.
 
-\subsection{Boundary Conditions at an Interface}
+% \section{Elastic Waves in Stratified Media}
+% The previous considerations enable now to target the description of elastic
+% wave propagation through layer structures, for instance distributed bragg
+% reflectors. Those structures consist of homogeneous materials with different
+% mechanical properties and thus phase velocities per material. 
+% In the following the layers
+% are assumed to be parallel to the xy-plane and have a defined thickness in
+% z-direction. In x and y-direction they are infinitely stretched out, which is a
+% good approximation, if the thickness is small compared to the width.
+% % 
+% \todo{alternative: reflecting boundaries on the side}
+% % 
+
+\subsection{Elastic Wave Scattering at an Interface}
+%Zwischentext einfügen ! #################################################################
+
+\subsubsection{Boundary Conditions}
+On the way to describe wave propagation through complex layer structures it is
+useful to consider a single interface first. In the upper half space $S_1$ and
+lower half space $S_2$
+we assume homogeneous materials with different elastic constants and thus
+different sound velocities. At the interface, which is chosen to be the
+xy-plane the elastic properties are discontinuous. However, we can assume that
+those layers connected strongly so that the displacement field and normal
+stresses are continuous at the boundary. This leads to the boundary conditions:
+% 
+\todo{lookup citation from \cite{brekhovskikh2012waves}}
+% 
+\begin{align} \label{eq:boundaryconditions}
+    \uline{u}^{(1)}(\uline{r}, t)|_{\uline{r}\in\partial S_1}   & =
+    \uline{u}^{(2)}(\uline{r}, t)|_{\uline{r}\in\partial S_2}       \\[5pt]
+    \sigma_{13}^{(1)}(\uline{r}, t)|_{\uline{r}\in\partial S_1} & =
+    \sigma_{13}^{(2)}(\uline{r}, t)|_{\uline{r}\in\partial S_2}     \\[5pt]
+    \sigma_{23}^{(1)}(\uline{r}, t)|_{\uline{r}\in\partial S_1} & =
+    \sigma_{23}^{(2)}(\uline{r}, t)|_{\uline{r}\in\partial S_2}     \\[5pt]
+    \sigma_{33}^{(1)}(\uline{r}, t)|_{\uline{r}\in\partial S_1} & =
+    \sigma_{33}^{(2)}(\uline{r}, t)|_{\uline{r}\in\partial S_2}
+\end{align}
+In these six equations displacement and stress from upper and lower medium are
+differentiated by the given superscript index.
+
+\subsubsection{Law of Refraction}
+% spatial orientation
+If we now consider a plane wave that is incident on that interface, we can
+define a plane of incidence as in section \ref{sec:IsoSolution} and rotate the
+coordinate system so that it equals the yz-plane. This is only valid if we
+assume an isotropic material as stated before.
+In that setting, the wavevector $\uline{k}_i$ for a particular mode $i \in
+    \{L,TV,TH\}$ can be parametrised by the angle of incidence $\theta$ as
+\begin{equation}
+    \uline{k}_i = \frac{\omega}{c_i}\, ( 0,\ \sin(\theta_i),\ -\cos(\theta_i)\
+    )^T
+\end{equation}
+% polarisation basis
+The polarisation basis can then be defined as
+\begin{align}
+    \uline{p}_L = \uline{\hat{k}} & = ( 0,\ \sin(\theta_i),\ -\cos(\theta_i)\
+    )^T
+    \\
+    \uline{p}_{TH}                & = (\ 1,\ 0,\ 0)^T
+    \\
+    \uline{p}_{TV}                & = \uline{p}_L \cross \uline{p}_{TH}
+    = ( 0,\ -\cos(\theta), -\sin(\theta))^T
+\end{align}
+% general snellius
+It is now possible to extract a law of refraction from the boundary conditions
+in equation \ref{eq:boundaryconditions} (see \cite{achenbach1973wave}, pp.168ff). 
+A simple approach is to consider
+scattering of the transversal horizontal mode (TH) so that the displacement is
+only in x-direction. An incoming plane wave with
+wave vector $\uline{k}_{in}$ is partially reflected to a wave along
+$\uline{k}_r$ and partially transmitted through the interface to a wave with
+$\uline{k}_t$. Also, different frequencies $\omega_i$ are assumed for the
+scattered waves so that the wave in the upper medium is
+\begin{equation}
+    u_1^{(1)} = a_{in}\
+    e^{i( k_{in}\sin\theta_{in} y-\omega_{in} t)}
+    + a_r\ e^{i( k_{r}(\sin\theta_{r} y -\omega_{r} t)}
+\end{equation}
+and in the lower medium
+\begin{equation}
+    u_1^{(2)} = a_{t}\
+    e^{i(( k_{t}\sin\theta_{t} y -\omega_{t} t)}
+\end{equation}
+Here it was used, that the interface is at $z=0$ which simplifies the following
+derivation.
+According to the boundary conditions, these displacements must equal each other
+at any time and for all points on the interface. This leads to the immediate
+conclusion, that
+\begin{equation} \label{eq:equalfreq}
+    \omega = \omega_{in} = \omega_r = \omega_t
+\end{equation}
+After removing the common factor $e^{-i\omega t}$ from the equation and
+expressing the wave numbers by frequency and sound velocity over
+$k = \frac{\omega}{c}$, we get
+\begin{equation} \label{eq:snelliuscompare}
+    a_{in}\ e^{i \frac{ \omega}{c_{T,1}}\sin\theta_{in} y}
+    + a_{r}\ e^{i \frac{ \omega}{c_{T,1}}\sin\theta_{r} y}
+    = a_{t}\ e^{i \frac{ \omega}{c_{T,2}}\sin\theta_{t} y}
+\end{equation}
+This however can be only fulfilled vor all $y \in \mathbb{R}$, if the relations
+\begin{align}
+    a_{in} + a_r = a_t \\
+    \frac{\sin\theta_{in}}{c_{T,1}} = \frac{\sin\theta_{r}}{c_{T,1}} =
+    \frac{\sin\theta_{t}}{c_{T,2}} \label{eq:gensnell}
+\end{align}
+are correct. Equation \ref{eq:gensnell} can be also interpreted as the equality
+of the component parallel to the interface of wave vector
+$k_y=\sin\theta_i \frac{\omega}{c_i}$.
+
+The same procedure can be applied to the y and z component of the displacement
+field, where transversal vertical ($TV$) and longitudinal ($L$) modes need to
+be considered. However, one significant difference is, that even for a single
+incident mode both $L$ and $TV$ mode are possible after being reflected or
+transmitted. This will only add an additional addend of the form
+$ a_{i}\ e^{i \frac{ \omega}{c}\sin\theta_{i} y}$ to each side of equation
+\ref{eq:snelliuscompare}, but will result in analoguous relations to
+\ref{eq:equalfreq} and \ref{gensnell}, namely the invariance of frequency
+$\omega$ and $k_2$ of each mode under scattering at the interface.
+
+It is also possible to get the analytical solutions for refraction of a single
+mode at an interface by evaluating the remaining boundary conditions and the
+results from continuity of displacement.
+% algebraic solution to single interface?
+
+% energy partition at single surface
 
 \subsection{Solving Methods for Stratified Media}
 
