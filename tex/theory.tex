@@ -223,13 +223,17 @@ with elastic potentials $\Phi$ and $\Psi$ and insert it into
 \ref{eq:balanceIso},
 it decouples to the two equations (see \cite{BedfordElasticWaves})
 \begin{align}
-    \ddiff{\Phi}{t} = \alpha^2 \uline{\gradient}^2\Phi \\
-    \ddiff{\uline{\Psi}}{t} = \beta^2 \uline{\gradient}^2\uline{\Psi}
+    \ddiff{\Phi}{t} = c_L^2\
+     & \uline{\gradient}^2\Phi         \\
+    \ddiff{\uline{\Psi}}{t} = c_T^2\
+     & \uline{\gradient}^2\uline{\Psi} \\[5pt]
+    \text{with } c_L = \left(\frac{\lambda + 2\mu}{\rho}\right)^{1/2} \quad
+     &
+    \text{ and } \quad c_T = \left(\frac{\mu}{\rho}\right)^{1/2}
+    \label{eq:veldef}
 \end{align}
-with $\alpha = \left(\frac{\lambda + 2\mu}{\rho}\right)^{1/2}$ and $\beta =
-    \left(\frac{\mu}{\rho}\right)^{1/2}$. Those equations represent four wave
-equations for the elastic potentials with phase velocities $\alpha$ and
-$\beta$.
+Those equations represent four wave equations for the elastic potentials with
+phase velocities $c_L$ and $c_T$.
 
 In analogy to electromagnetic waves we can now make the harmonic
 plane wave ansatz $\Phi(\uline{x}, t)= u_L\
@@ -261,7 +265,7 @@ depending on the propagation direction $\uline{\hat{k}} =
     + (a_{TH}\ \uline{p}_{TH} + a_{TV}\ \uline{p}_{TV})\
     e^{i(\uline{k}_T\uline{x}-\omega t)}
 \end{equation}
-In gerneral, the polarisation vector for longitudinal polarisation
+In general, the polarisation vector for longitudinal polarisation
 $\uline{p}_L$ is fixed to be $\uline{\vec{k}}$. If scattering at an interface
 is considered, a plane of incidence can be defined that is spanned by
 $\uline{\hat{k}}$ and the normal vector of the interface. The transversal
@@ -299,10 +303,8 @@ we assume homogeneous materials with different elastic constants and thus
 different sound velocities. At the interface, which is chosen to be the
 xy-plane the elastic properties are discontinuous. However, we can assume that
 those layers connected strongly so that the displacement field and normal
-stresses are continuous at the boundary. This leads to the boundary conditions:
-% 
-\todo{lookup citation from \cite{brekhovskikh2012waves}}
-% 
+stresses are continuous at the boundary \cite[182,185]{achenbach1973wave}. This
+leads to the boundary conditions:
 \begin{align} \label{eq:boundaryconditions}
     \uline{u}^{(1)}(\uline{r}, t)|_{\uline{r}\in\partial S_1}   & =
     \uline{u}^{(2)}(\uline{r}, t)|_{\uline{r}\in\partial S_2}       \\[5pt]
@@ -322,8 +324,9 @@ If we now consider a plane wave that is incident on that interface, we can
 define a plane of incidence as in section \ref{sec:IsoSolution} and rotate the
 coordinate system so that it equals the yz-plane. This is only valid if we
 assume an isotropic material as stated before.
-In that setting, the wavevector $\uline{k}_i$ for a particular mode $i \in
+In that setting, the wave vector $\uline{k}_i$ for a particular mode $i \in
     \{L,TV,TH\}$ can be parametrised by the angle of incidence $\theta$ as
+\todo{consistent mode description}
 \begin{equation}
     \uline{k}_i = \frac{\omega}{c_i}\, ( 0,\ \sin(\theta_i),\ -\cos(\theta_i)\
     )^T
@@ -341,7 +344,7 @@ The polarisation basis can then be defined as
 \end{align}
 % general snellius
 It is now possible to extract a law of refraction from the boundary conditions
-in equation \ref{eq:boundaryconditions} (see \cite{achenbach1973wave}, pp.168ff). 
+in equation \ref{eq:boundaryconditions} (see \cite[168ff]{achenbach1973wave}).
 A simple approach is to consider
 scattering of the transversal horizontal mode (TH) so that the displacement is
 only in x-direction. An incoming plane wave with
@@ -375,32 +378,125 @@ $k = \frac{\omega}{c}$, we get
     + a_{r}\ e^{i \frac{ \omega}{c_{T,1}}\sin\theta_{r} y}
     = a_{t}\ e^{i \frac{ \omega}{c_{T,2}}\sin\theta_{t} y}
 \end{equation}
-This however can be only fulfilled vor all $y \in \mathbb{R}$, if the relations
+This however can be only fulfilled for all $y \in \mathbb{R}$, if the relations
 \begin{align}
-    a_{in} + a_r = a_t \\
-    \frac{\sin\theta_{in}}{c_{T,1}} = \frac{\sin\theta_{r}}{c_{T,1}} =
+    a_{in} + a_r                      & = a_t                            \\
+    \frac{\sin\theta_{in}}{c_{T,1}} = & \frac{\sin\theta_{r}}{c_{T,1}} =
     \frac{\sin\theta_{t}}{c_{T,2}} \label{eq:gensnell}
 \end{align}
-are correct. Equation \ref{eq:gensnell} can be also interpreted as the equality
-of the component parallel to the interface of wave vector
+are met. Equation \ref{eq:gensnell} can be also interpreted as the equality
+of the wave vector component parallel to the interface
 $k_y=\sin\theta_i \frac{\omega}{c_i}$.
 
 The same procedure can be applied to the y and z component of the displacement
 field, where transversal vertical ($TV$) and longitudinal ($L$) modes need to
-be considered. However, one significant difference is, that even for a single
-incident mode both $L$ and $TV$ mode are possible after being reflected or
-transmitted. This will only add an additional addend of the form
-$ a_{i}\ e^{i \frac{ \omega}{c}\sin\theta_{i} y}$ to each side of equation
-\ref{eq:snelliuscompare}, but will result in analoguous relations to
-\ref{eq:equalfreq} and \ref{gensnell}, namely the invariance of frequency
+be considered \cite[185]{achenbach1973wave}. However, one significant
+difference is that even for a single incident mode, both $L$ and $TV$ mode are
+possible after being reflected or transmitted. This will only add a term of the
+form $ a_{i}\ e^{i \frac{ \omega}{c}\sin\theta_{i} y}$ to each side of equation
+\ref{eq:snelliuscompare}, but will result in analogous relations to
+\ref{eq:equalfreq} and \ref{eq:gensnell}, namely the invariance of frequency
 $\omega$ and $k_2$ of each mode under scattering at the interface.
+
+To conclude, the angle $\theta_{out}$ of any outgoing polarisation mode can be
+determined from the incoming wave`s angle $\theta_{in}$ and the sound
+velocities for incoming and outgoing wave $c_{in}, c_{out}$ by
+\begin{equation} \label{eq:generalsnell}
+    \frac{\sin\theta_{in}}{c_{in}} =  \frac{\sin\theta_{out}}{c_{out}}
+\end{equation}
+This can be transferred to the optical law of snellius by introducing an
+effective refraction index $n_i = \frac{1}{c_i}$. Consequently, TH-polarised
+waves scatter like electromagnetic waves and for example the reflected angle is
+always the incident angle.
+The main difference to optics becomes clear for L and TV polarised waves.
+Scattering within the same polarisation mode is the same as for the TH mode,
+but now those modes can scatter into each other. Equation \ref{eq:generalsnell}
+still applies, but energy is also emitted to additional modes as shown in
+figure \ref{fig:angles}.
 
 It is also possible to get the analytical solutions for refraction of a single
 mode at an interface by evaluating the remaining boundary conditions and the
-results from continuity of displacement.
+results from continuity of displacement. The results are usually expressed by
+defining a reflection coefficient $r_i$ and a transmission coefficient $t_i$
+for participating mode $i \in\{L, TH, TV\}$ as
+\begin{align}
+    r_i := \frac{a_{r,i}}{a_{in,i}} \\
+    t_i := \frac{a_{t,i}}{a_{in,i}}
+\end{align}
+Usually those coefficients have a functional dependency on the incident angle.
 % algebraic solution to single interface?
+\subsubsection{Total Internal Reflection}
 
-% energy partition at single surface
+\subsubsection{Conservation of Energy at a Single Interface}
+According to \cite[166]{achenbach1973wave} the transmitted time averaged power
+per unit area of a transversal elastic wave in a homogeneous medium is
+\begin{equation}
+    I_L = \frac{1}{2}(\lambda+2\mu)\frac{\omega^2}{c_L}|a_L|^2
+\end{equation}
+and similarly for a transversal elastic wave of a single polarisation mode
+\begin{equation}
+    I_T = \frac{1}{2}\mu\frac{\omega^2}{c_T}|a_T|^2
+\end{equation}
+where $a_T$ is either $a_{TV}$ or $a_{TH}$ depending on the regarded mode. This
+quantity is also known as time averaged intensity. By using the definition of
+$c_L$ and $c_T$ from equation \ref{eq:veldef} we get the more general relation
+\begin{equation}
+    I_p = \frac{\rho\omega^2}{2} |a_p|^2 c_p
+\end{equation}
+with $p\in \{L,TH, TV\}$ denoting the polarisation mode. It should be noted
+that the referred unit area is perpendicular to the direction of propagation.
+
+\begin{figure*}[h]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+        \includegraphics[width=\textwidth]{pictures/L_wave_diffraction.png}
+        \caption{Refraction of a Longitudinal Elastic Wave}
+        \label{fig:refPwave}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \vspace{30pt}
+        \includegraphics[width=0.8\textwidth]{pictures/energypartition.png}
+        \vspace{20pt}
+        \caption{Conservation of Energy at Surface Element $\Delta S$ for an TV
+            polarized beam}
+        \label{fig:energypartition}
+    \end{subfigure}
+    \caption{}
+    \label{fig:angles}
+\end{figure*}
+
+In the setting of an arbitrary polarised wave scattered at an interface,
+there are six possible outgoing modes as discussed previously.
+To get an energy relation between the intensities of each
+participating mode we consider the energy balance of a surface element
+$\Delta S$ of the interface, on which an arbitrary polarised beam with
+cross-sectional
+area $\Delta S_{0}$ and intensity $I_{in}$ is incident. The cross-sectional
+areas of the outgoing beams are named according to figure
+\ref{fig:energypartition} which can be also transferred to the case of an
+incident TH polarised wave.
+
+The power each beam transmits or emits is given by the product $P_p = I_p\
+    \Delta S_p$. $\Delta S_p$ is related to $\Delta S$ by $\Delta S_p =
+    \cos\theta_p\ \Delta S$,
+$p$ denoting any of the depicted beams and $theta_p$ being the according angle.
+
+In conclusion, the energy balance results in
+\begin{align}
+    I_{in} \cos\theta_{in} = \sum\limits_{i=L,TH,TV} I_{i,r}\  \cos\theta_{i,r}
+    + I_{i,t}\	\cos\theta_{i,t}
+\end{align}
+
+From that we can define reflectivity $\mathcal{R}$ and transmittivity $\mathcal{T}$ of the
+interface as fraction of reflected and transmitted power by
+\begin{align}
+    \mathcal{R} := \frac{ I_{L,r}\  \cos\theta_{L,r} + I_{TH,r}  \cos\theta_{T,r} +
+    I_{TV,r}  \cos\theta_{T,r}}{I_{in} \cos\theta_{in}} \\
+    \mathcal{T} := \frac{ I_{L,t}\  \cos\theta_{L,t} + I_{TH,t}  \cos\theta_{T,t} +
+    I_{TV,t}  \cos\theta_{T,t}}{I_{in} \cos\theta_{in}} \\
+\end{align}
+so that $\mathcal{R} + \mathcal{T} = 1$ is fullfilled. This can be later used to verify the
+obtained results.
 
 \subsection{Solving Methods for Stratified Media}
 
