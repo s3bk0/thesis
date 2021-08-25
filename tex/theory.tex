@@ -74,7 +74,7 @@ with the Jacobian matrix $(\underline{\underline{\gradient}}u )_{ij} =
     \frac{\partial u_i}{\partial r_j}$. This in turn can be decomposed into a
 symmetric part and an antisymmetric part. The symmetric part is defined as
 strain tensor:
-\begin{equation}
+\begin{equation} \label{eq:defstrain}
     \epsilon_{ij} = \frac{1}{2} \left(	 \frac{\partial u_i}{\partial r_j}
     +\frac{\partial u_j}{\partial r_i} \right)
 \end{equation}
@@ -259,7 +259,7 @@ with longitudinal polarisation and $\uline{\Psi}$ for waves with transversal
 propagation. Furthermore we can identify an orthonormal polarisation basis
 depending on the propagation direction $\uline{\hat{k}} =
     \frac{\uline{k}}{|\uline{k}|}$ so that $\uline{u}$ decomposes to
-\begin{equation}
+\begin{equation} \label{eq:wave_ansatz}
     \uline{u} = a_L \ \uline{p}_L\	e^{i(\uline{k}_L\uline{x}-\omega
             t)}
     + (a_{TH}\ \uline{p}_{TH} + a_{TV}\ \uline{p}_{TV})\
@@ -318,7 +318,7 @@ leads to the boundary conditions:
 In these six equations displacement and stress from upper and lower medium are
 differentiated by the given superscript index.
 
-\subsubsection{Law of Refraction}
+\subsubsection{Law of Refraction} \label{sec:lawofrefr}
 % spatial orientation
 If we now consider a plane wave that is incident on that interface, we can
 define a plane of incidence as in section \ref{sec:IsoSolution} and rotate the
@@ -327,7 +327,7 @@ assume an isotropic material as stated before.
 In that setting, the wave vector $\uline{k}_i$ for a particular mode $i \in
     \{L,TV,TH\}$ can be parametrised by the angle of incidence $\theta$ as
 \todo{consistent mode description}
-\begin{equation}
+\begin{equation} \label{eq:k_fromangle}
     \uline{k}_i = \frac{\omega}{c_i}\, ( 0,\ \sin(\theta_i),\ -\cos(\theta_i)\
     )^T
 \end{equation}
@@ -414,6 +414,9 @@ but now those modes can scatter into each other. Equation \ref{eq:generalsnell}
 still applies, but energy is also emitted to additional modes as shown in
 figure \ref{fig:angles}.
 
+% possible additional statements:
+% - limited set of angles for any combination of layers
+
 It is also possible to get the analytical solutions for refraction of a single
 mode at an interface by evaluating the remaining boundary conditions and the
 results from continuity of displacement. The results are usually expressed by
@@ -426,6 +429,35 @@ for participating mode $i \in\{L, TH, TV\}$ as
 Usually those coefficients have a functional dependency on the incident angle.
 % algebraic solution to single interface?
 \subsubsection{Total Internal Reflection}
+Total internal reflection is known as the phenomenon, when a wave is totally
+reflected at a boundary for incident angles greater than a critical angle
+$\theta_{tot}$. If $c_1$ and $c_2$ are the phase velocities first and second
+medium, the outgoing angle
+\begin{equation}
+    \theta_2 = \arcsin( \frac{c_1}{c_2} \sin(\theta_1)) \quad c_2 < c_1
+\end{equation}
+has no real solution for $\theta_1 > \theta_{tot} = \arcsin \frac{c_2}{c_1}$.
+There is however a complex solution and this resulting complex angle can be
+interpreted in the given wave formalism \cite[5]{brekhovskikh2012waves}. This
+interpretation also allows to extend the concept to two arbitrary polarisation
+modes that the wave can scatter inbetween, regardless of propagation direction.
+
+Considering the case $\theta_1 > \theta_{tot}$, $\theta_2$ takes the shape of
+$\theta_2 = \frac{\pi}{2} + i\alpha,\ \alpha\in\mathbb{R}$. Inserting this into
+the general wave solution equation \ref{eq:wave_ansatz}, we need to calculate
+the wave vector $\uline{k}$ as in equation \ref{eq:k_fromangle}. This results
+in
+\begin{align}
+    k_y & = k \sin\theta_2 = k \cosh\alpha & k_z= k \cos\theta = ik \sinh\alpha
+\end{align}
+This complex wave vector inserted into the factor $e^{ik_zz}$ results in
+$e^{-k\sinh\alpha} z$ which represents an evanescent wave. This type of wave is
+attenuated exponentially so that the wave behaves as expected.
+
+In case of Frustrated total internal reflection this exponential behaviour
+becomes relevant, when another interface is close to the first reflecting
+interface. Then it is possible for the usually totally reflected mode to
+transmit intensity into a mode of the third medium.
 
 \subsubsection{Conservation of Energy at a Single Interface}
 According to \cite[166]{achenbach1973wave} the transmitted time averaged power
@@ -487,19 +519,257 @@ In conclusion, the energy balance results in
     + I_{i,t}\	\cos\theta_{i,t}
 \end{align}
 
-From that we can define reflectivity $\mathcal{R}$ and transmittivity $\mathcal{T}$ of the
+From that we can define reflectivity $\mathcal{R}$ and transmittivity
+$\mathcal{T}$ of the
 interface as fraction of reflected and transmitted power by
 \begin{align}
-    \mathcal{R} := \frac{ I_{L,r}\  \cos\theta_{L,r} + I_{TH,r}  \cos\theta_{T,r} +
+    \mathcal{R} := \frac{ I_{L,r}\  \cos\theta_{L,r} + I_{TH,r}
+        \cos\theta_{T,r} +
     I_{TV,r}  \cos\theta_{T,r}}{I_{in} \cos\theta_{in}} \\
-    \mathcal{T} := \frac{ I_{L,t}\  \cos\theta_{L,t} + I_{TH,t}  \cos\theta_{T,t} +
+    \mathcal{T} := \frac{ I_{L,t}\  \cos\theta_{L,t} + I_{TH,t}
+        \cos\theta_{T,t} +
     I_{TV,t}  \cos\theta_{T,t}}{I_{in} \cos\theta_{in}} \\
 \end{align}
-so that $\mathcal{R} + \mathcal{T} = 1$ is fullfilled. This can be later used to verify the
-obtained results.
+so that $\mathcal{R} + \mathcal{T} = 1$ is fulfilled. This can be later used to
+verify the  obtained results.
 
-\subsection{Solving Methods for Stratified Media}
+\subsection{Scattering at a System of Layers}
+The considerations of one interface can now be extended to a system of $N$
+interfaces as shown in figure \ref{fig:dbr}. Each layer gets an index $n$
+starting from the uppermost layer of index $n=0$. The first interface from the
+top is still located at $z_1=0$ and has index $n=1$. The subsequent interfaces
+follow below at depths $z_n$. Their depth depends on the intermediate layer
+thicknesses $d_n=z_n-z_{n+1}$ with layer index $n$.
+Similar as before, we assume now the displacement field in each layer $n$ as
+\begin{equation} \label{eq:gendisplacement}
+    \uline{u}^{(n)}(\uline{x},t)= \sum\limits_{i\in\{L,TH,TV\}} t_{n,i}
+    \uline{p}_{n,i}^t\ e^{i(\uline{k}_{n,i}^t\uline{x} - \omega t)}
+    + r_{n,i} \uline{p}_{n,i}^r\ e^{i(\uline{k}_{n,i}^r\uline{x} - \omega t)}
+\end{equation} %mention dependency on theta?
+This formula is a superposition of a down going wave with quantities denoted by
+t and a upgoing wave caused by reflections with quantities denoted by r. The
+upgoing $\uline{k}^r$ is flipped in z-direction compared to $\uline{k}^t$.
+Further, the complex amplitudes of down and upgoing modes are directly denoted
+by $t_{n,i}$ and $r_{n,i}$. As
+the angle $\theta_{n,i}$ between $\uline{k}$ and z-axis is changes by
+scattering, also $\uline{k}_{n,i}$ and polarisation vector $\uline{p}_{n,i}$ is
+different for each material. %genauere beschreibung?
+%Angle propagation
+%only one incident mode allowed
+
+To evaluate the transmission through the stack of layers, it is now the task to
+calculate the coefficients $t_{N,i}$ and $r_{1,i}$ under given coefficients
+$t_{1,i}$ and with the assumption $r_{N,i}=0$ for all $i\in\{L,TH,TV\}$. We
+further choose exactly one $t_{1,i}=1$ to mark the incident mode. This
+simplifies solving the problem and lets the coefficients $t_{N,i}$ and
+$r_{1,i}$ become the transmission and reflection coefficients of the layer
+system.
+
+For this, all $6N$ boundary conditions need to be solved. These are constructed
+by inserting the general displacement field of each participating layer as in
+equation \ref{eq:gendisplacement} in the boundary conditions for a single
+interface (equation \ref{eq:boundaryconditions}). As a result each displacement
+field of an enclosed layer is evaluated twice, once at the upper boundary and
+once at the lower boundary. This results in a phase shift of $e^{-ik_zd_n}$
+between upper and lower displacement.
+
+As many systems of equations this problem can be formulated with matrices. In
+the following, two similar solution methods are introduced.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{pictures/DBR_amplitudes_final.jpg}
+    \caption{Geometry and amplitude nomenclature of a N layer strong bragg
+        reflector}
+    \label{fig:dbr}
+\end{figure}
 
 \subsubsection{Transfer Matrix Method}
+To introduce the matrix formalism it is useful to focus on a single interface
+with index $n$ between layers $n-1$ and $n$ located at depth $z_n$. We can
+define a generalised state vector $\uline{v}_i$  in each layer $i$ as
+\cite{Fomenko2014}
+\begin{equation}
+    \uline{v}_i = (u^{(i)}_1, u^{(i)}_2, u^{(i)}_3, \sigma^{(i)}_{13},
+    \sigma^{(i)}_{23}, \sigma^{(i)}_{33})^T
+\end{equation}
+Each of the components depends on location $\uline{x}$ and time $t$ in the
+layer. We also introduce the superscript "+" for evaluating an arbitrary
+multidimensional function of space and layer index $n$ at interface
+$\mathcal{F}_n$ and superscript "-" for evaluating at $\mathcal{F}_{n-1}$ so
+that the boundary conditions at the n-th interface $\mathcal{F}_n$ are
+\begin{equation}
+    \uline{v}_n^+ = \uline{v}_{n+1}^-
+\end{equation}
+In addition to equation \ref{eq:gendisplacement} the stress components in
+$\uline{v}$ can be evaluated as well. From stress strain relation
+\ref{eq:HookStress3D} we get for an isotropic material
+\begin{align}
+    C_{1313}^{(n)}\epsilon_{13}^{(n),+} =                     &
+    C_{1313}^{(n+1)}\epsilon_{13}^{(n+1),-}                     \\[5pt]
+    C_{2323}^{(n)}\epsilon_{23}^{(n),+} =                     &
+    C_{2323}^{(n+1)}\epsilon_{23}^{(n+1),-}                     \\
+    \sum\limits_{i=1}^3 C_{33ii}^{(n)}\epsilon_{ii}^{(n),+} = &
+    \sum\limits_{i=1}^3 C_{33ii}^{(n+1)}\epsilon_{ii}^{(n+1),+}
+\end{align} %possibly change to |_{\uline{r}\in\mathcal{F}_n}
+\todo{mention, that propagation of angles is needed first}
+Furthermore, the strain can be evaluated by inserting the general displacement
+field \ref{eq:gendisplacement} into its definition $\epsilon_{ij} = \frac{1}{2}
+    \left( \diff{u_i}{r_j} +\diff{u_j}{r_i} \right)$.
+
+At this point it is neccessary to know all angles at which the different modes
+propagate through each layer in order to construct the equations as linear
+relations. These can be obtained by following the considerations of section
+\ref{sec:lawofrefr.}  Because of our limitation to one incident mode on the top
+layer, also only one propagation angle per distinct phase velocity in the
+medium is possible. From the structure of
+$\uline{u}^{(n)}$ it is possible to construct a $6\cross6$ matrix $M_n$ so that
+\begin{equation}
+    \uline{v}_n(z) = \uuline{M_n}\ \uuline{P_n}(z-z_n)\uline{a}_n
+\end{equation}
+The coefficient vector $\uline{a_n}$ of layer $n$ is defined as
+\begin{equation}
+    \uline{a}_n = (\uline{t}_n, \uline{r}_n)^T	= (t_{n,L}, t_{n,TH}, t_{n,TV},
+    r_{n,L}, r_{n,TH}, r_{n,TV})^T
+\end{equation}
+containing the wave amplitudes at the upper edge of each layer $z = z_n$. As an
+exeption, $r_{0,i}$ and $t_{0,i}$ are defined directly at the first interface.
+
+$\uuline{P_n}(z)$ represents the phase factors due to wave propagation
+as diagonal matrix
+\begin{equation} \label{eq:PmatTMM}
+    \uuline{P_n}(z) = \mathit{diag}\{ e^{ik_{z,n}^{(L)}z},
+    e^{ik_{z,n}^{(TH)}z},
+    e^{ik_{z,n}^{(TV)}z}, e^{-ik_{z,n}^{(L)}z}, e^{-ik_{z,n}^{(TH)}z},
+    e^{-ik_{z,n}^{(TV)}z}\}
+\end{equation}
+The addend $k_{y,n} y$ was removed from the expression as it does not change at
+the boundary. This automatically sets the phase of the displacement wave to
+zero at the upper boundary of the layer. The coefficients at the lower boundary
+are in the following denoted by $\uline{a}_n^\prime = \uuline{P_n}(-d_n)\
+    \uline{a}_n$.
+
+As a result the boundary conditions at an individual interface between layers
+$n-1$ and $n$ can be written as
+\begin{equation}
+    \uuline{M}_{n-1}\ \uline{a}_{n-1}^\prime = \uuline{M}_{n}\ \uline{a}_{n}
+\end{equation}
+If we assume that $\uuline{M}_{n}$ is invertable, we can define the
+Transfermatrix $S_n$ by
+\begin{equation}
+    \uline{a}_{n} = \uuline{M}_{n}^{-1}\ \uuline{M}_{n-1}
+    \uline{a}_{n-1}^\prime
+    = \uuline{S}_n \uline{a}_n^\prime
+\end{equation}
+which enables us to obtain the wave coefficients after scattering by a simple
+matrix multiplication.
+
+With this knowledge we can assemble a global transfermatrix for all interfaces
+by
+\begin{equation}
+    \uuline{S} = \uuline{S}_N\cdot \uuline{P}_{N}(z_{N}-z_{N-1})\cdot
+    \uuline{S}_{N-1} \cdot \uuline{P}_{N-1}(z_{N-1}-z_{N-2}) \cdots
+    \uuline{S}_2
+    \cdot \ \uuline{P}_2(z_{2}-z_{1}) \cdot \uuline{S}_1
+\end{equation}
+so that the final wave coefficients $\uline{a}_N$ below the lowest interface
+are
+\begin{equation}
+    \begin{pmatrix} \uline{t}_n \\ \uline{r}_n	\end{pmatrix}
+    = S\cdot  \begin{pmatrix} \uline{t}_1 \\ \uline{r}_1 \end{pmatrix} =
+    \begin{pmatrix}
+        \uuline{T} & \uuline{C}_1 \\ \uuline{C}_2 & \uuline{R}
+    \end{pmatrix} \cdot \begin{pmatrix} \uline{t}_1 \\ \uline{r}_1
+    \end{pmatrix}
+\end{equation}
+Remembering that $\uline{r_n}=0$, we can solve for $\uline{r}_1$ and
+$\uline{t}_n$
+\begin{align}
+    \uline{r}_1 & = -\uuline{R}^{-1}\ \uuline{C}_2\ \uline{t}_1             \\
+    \uline{t}_n & = \begin{pmatrix} \uuline{T},& \uuline{C}_1 \end{pmatrix}
+    \cdot \begin{pmatrix} \uline{t}_1 \\ -\uuline{R}^{-1}\ \uuline{C}_2\
+              \uline{t}_1\end{pmatrix}
+\end{align}
+%@appendix:
+% exact extraction of matrix elements,
+% explain removal of y dependency
 
 \subsubsection{Linear System of Equations}
+As an alternative, a more direct solving approach is presented by solving the
+system of linear equations with the inversion of a single matrix. This method
+will be called from now on LSE-method (Linear System of Equations). Its
+advantages and disadvantages will be discussed later.
+
+For this method the coefficients for upgoing waves are defined to have their
+phase origin at the lower interface instead of the upper interface as defined
+in \ref{eq:PmatTMM}, so that the P-matrix becomes
+\begin{equation}
+    \uuline{P_n}(z) = \mathit{diag}\{ e^{ik_{z,n}^{(L)}z},
+    e^{ik_{z,n}^{(TH)}z},
+    e^{ik_{z,n}^{(TV)}z}, e^{-ik_{z,n}^{(L)}(z+d_n)},
+    e^{-ik_{z,n}^{(TH)}(z+d_n)},
+    e^{-ik_{z,n}^{(TV)}(z+d_n)}\}
+\end{equation}
+For better clarity in notation we can rewrite matrix $\uuline{M}_n$ as
+composition of two $6\cross 3$ matrices $\uuline{M}_n = (\uuline{T}_n,
+    \uuline{R}_n)$ and $\uuline{P}_n$ as block diagonal of two $3\cross 3$
+matrices $\uuline{P}_n = \mathit{diag}\{\uuline{D}_n(z),\
+    \uuline{D}_n(-(z+d_n))
+    \})$. The boundary conditions at interface $n$, below layer $n$ are then
+\begin{equation}
+    \left(\uuline{T}_n,\ \uuline{R}_n\cdot \uuline{D}_n(-d_{n}) \right)
+    \begin{pmatrix} \uline{t}_n \\ \uline{r}_n \end{pmatrix} =
+    \left( \uuline{T}_{n-1} \cdot \uuline{D}_{n-1}(-d_{n-1}),\
+    \uuline{R}_{n-1} \right)
+    \begin{pmatrix} \uline{t}_{n-1} \\ \uline{r}_{n-1} \end{pmatrix}
+\end{equation}
+With $\uuline{T}_{n-1}^\prime = \uuline{T}_{n-1} \cdot
+    \uuline{D}_{n-1}(-d_{n-1})$ and analogously for $\uuline{R}_n^\prime$, this
+is equivalent to
+\begin{equation}
+    \left(\uuline{T}_{n-1}^\prime,\ \uuline{R}_{n-1}
+    -\uuline{T}_n,\ -\uuline{R}_n^\prime,\right)
+    \begin{pmatrix} \uline{t}_{n-1} \\ \uline{r}_{n-1} \\  \uline{t}_n \\
+        \uline{r}_n\end{pmatrix} = 0
+\end{equation}
+This denotes now a $6\cross 12$ matrix for a single interface. In general the
+total
+system is constructed as $6N \cross 6N$ matrix
+\begin{equation}
+    \begin{pmatrix}
+        \uuline{R}_0        & -\uuline{T}_1           & -\uuline{R}_1^\prime &
+        0
+                            & 0                       & \cdots               &
+        0
+        \\
+        0                   & \uuline{T}_1^\prime     & \uuline{R}_1         &
+        \uuline{T}_2        &
+        \uuline{R}_2^\prime & \cdots                  & \vdots
+        \\
+        \vdots              & \ddots                  & \ddots               &
+        \ddots              & \ddots                  & \ddots               &
+        \vdots
+        \\
+        \vdots              & \ddots                  & \ddots               &
+        \ddots              & \ddots                  & \ddots               &
+        \vdots
+        \\
+        0                   & \cdots                  & \cdots               &
+        0
+                            & \uuline{T}_{N-1}^\prime & \uuline{R}_{N-1}
+                            &
+        \uuline{T}_{N}
+
+    \end{pmatrix}
+    \begin{pmatrix}
+        \uline{r_0} \\[4pt] \uline{t}_1 \\[4pt] \uline{r}_1 \\[4pt] \vdots
+        \\[4pt] \uline{t}_{N}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        -\uuline{T}_0\ \uline{t}_0 \\ 0 \\ \vdots \\ \vdots \\ \uuline{R}_{N}\
+        \uline{r}_N
+    \end{pmatrix}
+\end{equation}
+to be able to invert it. By setting $\uline{r}_N = 0$ as before we obtain
+$\uline{r}_0$ and $\uline{t}_N$ after inverting the $16\cross 16$ matrix.
