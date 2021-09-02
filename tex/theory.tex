@@ -3,29 +3,33 @@ In order to understand the complexity of the problem \todo{justification for
 utilised solving method, it is reasonable to revisit some fundamental concepts
 in the following chapter. At the same time, a consistent notation is
 introduced. At first, the tensor formalism for elastic properties
-of rigid bodies is introduced. It should be noted in advance, that vectors are
+of rigid bodies is introduced. After that, elastic waves are derived and
+analysed further. This discussion will be mostly based on \cite{GrossMarx2014},
+if not otherwise stated.
+\todo{check if description still applies, citation?}
+
+It should be noted in advance, that vectors are
 denoted by a single underline and tensors or
 tensor fields of higher order by a number of underlines corresponding to their
-order. \\ After that, elastic waves are derived and analysed
-further. This will be mostly based on \cite{GrossMarx2014}, if not otherwise
-stated.
-\todo{check if description still applies, citation?}
+order. Also, Einstein summation convention should be applied if no explicit
+summation is given in the same formula.
 
 \section{Elastic Properties of Materials}
 In the following, the formalism for bulk elastic properties of materials is
 introduced. As only small deformations are relevant for the considerations in
 this thesis, they are assumed to be in the regime of linear elastic behaviour,
-neglecting plastic or nonlinear behaviour.
+thus neglecting plastic or nonlinear behaviour.
 
-In one dimension this can be described simply by Hooke`s law, which states
-that a small displacement $\Delta l$ caused by a force $F$ is
-proportional to the displacement. Considering an object of length $l$ and
-cross-sectional area $A$, \textbf{stress} and \textbf{strain} can be defined as
+In one dimension linear elastic behaviour can be described simply
+by Hooke`s law, which states that a small displacement $\Delta l$ caused by a
+force $F$ is proportional to the force.
+Considering an object of length $l$ and cross-sectional area $A$,
+\textbf{stress} and \textbf{strain} can be defined as
 
 \begin{align}
      & \text{Stress} \quad \quad \sigma := \frac{F}{A}
      & \text{Strain} \quad \quad \epsilon := \frac{\Delta l}{l}
-\end{align}
+\end{align}.
 
 Hooke`s law can now be reformulated as
 \begin{equation}
@@ -35,7 +39,7 @@ Hooke`s law can now be reformulated as
 with \textbf{Young`s Modulus C} as proportional constant.
 
 \subsection{Stress Tensor}
-For finite size objects stress can be defined locally on
+For objects of finite size, stress can be defined locally on
 infinitesimal, cubic volume elements. These volume elements get deformed by
 forces that are applied to the object. If we consider a general force
 $\Delta \underline{F}$ acting on a surface element $\Delta A$ we can always
@@ -50,17 +54,18 @@ as
             in direction j}}
 \end{equation}
 \todo{picture of stress definition?}
-whereas indices i and j denote denote one of the spatial directions x,y or z.
-If we claim the volume element to be static, it follows, that the normal forces
-on opposite sites and tangential forces on neighbouring sides equal each other.
-The latter can be expressed over $\sigma_{ij}=\sigma_{ji}$. This leaves 6
+where indices i and j denote denote one of the spatial directions x,y or z.
+If we assume the volume element to be in equilibrium, it follows that the
+normal forces on opposite sites and tangential forces on neighbouring sides
+equal each other.
+The latter implies that $\sigma_{ij}=\sigma_{ji}$. This leaves 6
 independent components, the three normal stresses $\sigma_{ii}$ and the three
 shear stresses $\sigma_{ij}$.
 
 \subsection{Strain Tensor}
-Deformation of a three dimensional object can be described using the
+Deformation of a three-dimensional object can be described using the
 displacement field $\underline{u}(\underline{r}, t):=
-    \underline{r}^\prime-\underline{r}$,
+    \underline{r}^\prime-\underline{r}$,\todo{check definitions}
 which defines a displacement vector for each point $\underline{r}$ in space in
 comparison to the deformed position $\underline{r}^\prime$. Local stress only
 relates to change in displacement relative to neighbouring positions which
@@ -80,25 +85,27 @@ strain tensor:
 \end{equation}
 It is a dimensionless measure for local deformation in contrast to the
 antisymmetric part, which represents local rotation.
-\todo{reference to lecture 2?}
+\todo[color=LightGreen]{why is rotation irrelevant?}
 
 \subsection{Stress-Strain Relations}
-With stress and strain tensor introduced, equation \ref{eq:HookStress1D} can
-be generalised to three dimensions taking anisotropies of the material into
-account:
+Having introduced the stress and the strain tensors, equation
+\ref{eq:HookStress1D} can be generalised to three dimensions, thereby taking
+anisotropies of the material into account:
 \begin{align} \label{eq:HookStress3D}
      & \sigma_{ij} =  C_{ijkl}\epsilon_{kl} \quad\quad\quad
     \quad \quad \text{or}
      & \uuline{\sigma} = \uuline{\uuline{C}} \cdot \uuline{\epsilon}
-\end{align}
+\end{align}\todo[color=LightGreen]{what is the usual convention?}
 This defines the \textbf{Elasticity tensor} as order 4 tensor with unit force
-/ area. In general this tensor contains 81 components. However, stress and
-strain tensor are symmetric, so that $C_{ijkl} = C_{jikl} = C_{ijlk}$. This
+/ area. In general this tensor contains 81 components. However, both the stress
+
+and
+the strain tensor are symmetric, so that $C_{ijkl} = C_{jikl} = C_{ijlk}$. This
 reduces the number of independent components to 36 and makes it possible to
-describe the Elasticity tensor as $6\cross6$ matrix. For this representation,
+describe the Elasticity tensor as a $6\cross6$ matrix. For this representation,
 the so called Voigt notation maps pairs of coefficients of elasticity, strain
 and stress tensor to a single index as in table \ref{tab:voigt}
-\begin{table}[h]
+\begin{table}[t]
     \centering
     \begin{tabular}{cccccc}
         $xx \rightarrow 1$ & $yy \rightarrow 2$    & $zz \rightarrow 3$    &
@@ -112,7 +119,7 @@ This simplifies the notation of elasticity significantly, but it should be
 treated carefully. Tensors written in Voigt notation do not transform like
 vectors in each index.
 
-One can also proof, that $C_{ijkl} = C_{klij}$ considering elastic energy (see
+One can also proove, that $C_{ijkl} = C_{klij}$ considering elastic energy (see
 section 4.3.1 of \cite{GrossMarx2014}) which leads to 21 independent
 components. Further simplifications derive from crystal symmetry or
 limitations in anisotropy. In the following treatment, the material is assumed
@@ -153,12 +160,12 @@ can be expressed by a simplified $6\cross6$ matrix as in:
 This formalism can now be used to introduce elastic waves. Their existence and
 behaviour depends on the equations of motion of the regarded medium. To obtain
 these, we consider at first a small volume $\Delta V = \Delta x \Delta y
-    \Delta z$, that is subject to a stress $\sigma_{xx}(x)$ on the one side and
+    \Delta z$ that is subject to a stress $\sigma_{xx}(x)$ on the one side and
 to $\sigma_{xx}(x+\Delta x)$ on the other side. The resulting net force becomes
 thus
 \begin{equation}
     \Delta F_x = \left[ \sigma_{xx}(x+\Delta x)- \sigma_{xx}(x) \right] \Delta
-    x \Delta y = \diff{\sigma_{xx}}{x} \Delta x \Delta y \Delta z
+    z \Delta y = \diff{\sigma_{xx}}{x} \Delta x \Delta y \Delta z
 \end{equation}
 by approximating $\sigma_{xx}(x+\Delta x)$ in first order and setting the frame
 of reference to the center of mass of the volume.
@@ -199,8 +206,8 @@ account leading to the general wave equation
 \subsection{Solution for Isotropic Materials}
 \label{sec:IsoSolution}
 In the following analysis, only isotropic media will be considered. In this
-case the isotropic stress strain relation, equation
-\ref{eq:StressStrainIso}, can be inserted to the wave equation which
+case the isotropic stress-strain relation, equation
+\ref{eq:StressStrainIso}, can be inserted in the wave equation which
 yields
 \begin{equation}
     \rho \ddiff{\uline{u}}{t} = (\lambda + \mu)\ \uline{\gradient}
@@ -208,7 +215,7 @@ yields
 \end{equation}
 By using the relation $\gradient^2 \uline u = \uline{\gradient}
     (\uline{\gradient}\cdot \uline{u}) - \uline{\gradient}
-    \cross(\uline{\gradient} \cross \uline{u})$ for the vector laplace operator
+    \cross(\uline{\gradient} \cross \uline{u})$ for the vector Laplace operator
 one can express it as
 \begin{equation} \label{eq:balanceIso}
     \rho \ddiff{\uline{u}}{t} = (\lambda + 2\mu)\ \uline{\gradient}
@@ -241,9 +248,9 @@ plane wave ansatz $\Phi(\uline{x}, t)= u_L\
     =
     \uline{u}_T \ e^{i(\uline{k}_T\uline{x}-\omega t)}$ with arbitrary
 amplitudes $u_L\in\mathbb{C}$ and $\uline{u}_T\in \mathbb{C}^3$.
-At this, the vector
-$\uline{k}=\frac{2\pi}{\lambda}$ denotes the wave vector defined over the
-wavelength $\lambda$ and $\omega$ is the circular frequency defined over the
+Here, the vector
+$\uline{k}=\frac{2\pi}{\lambda}$ denotes the wave vector defined by the
+wavelength $\lambda$ and $\omega$ is the circular frequency defined by the
 oscillation frequency $f$ with	$\omega = 2 \pi f$. The differentiation between
 $\uline{k}_L$ and $\uline{k}_T$ is necessary because of the different
 phase velocities for the elastic potentials resulting in different wave numbers
@@ -271,11 +278,18 @@ is considered, a plane of incidence can be defined that is spanned by
 $\uline{\hat{k}}$ and the normal vector of the interface. The transversal
 polarisation vectors are then defined as transversal horizontal polarisation
 $\uline{p}_{TH}$ pointing out of the plane of incidence and transversal
-vertical polarisation lying in plane of incidence orthonormal to
-$\uline{\hat{k}}$.
+vertical polarisation $\uline{p}_{TH}$ lying in plane of incidence orthonormal
+to $\uline{\hat{k}}$, here now defined as
+$\uline{p}_{TV}=\uline{p}_L \cross \uline{p}_{TH}$.
+\todo[color=LightGreen]{decomposition: e.g
+    $a_L= \uline{u}(\uline{x}, t)\cdot\hat{k} * e^{-ikx+i\omega t}$ \\?}
+\todo{sketch}
 
-The coefficients $a_i$ may be complex to express an additional phase between
-the components. However, it should be noted, that this is merely convenient for
+To sum up, those polarisation vectors define three polarisation modes L, TH and
+TV denoting longitudinal, transveral horizontal and transversal vertical
+polarisation which can be superimposed arbitrarily. The coefficients $a_i$ may
+be complex to express an additional phase between the components. However, it
+should be noted, that this is merely convenient for
 calculation and that the physical wave behaves like the real part of the shown
 equations.
 
@@ -320,9 +334,11 @@ differentiated by the given superscript index.
 
 \subsubsection{Law of Refraction} \label{sec:lawofrefr}
 % spatial orientation
-If we now consider a plane wave that is incident on that interface, we can
-define a plane of incidence as in section \ref{sec:IsoSolution} and rotate the
-coordinate system so that it equals the yz-plane. This is only valid if we
+If we now consider a plane wave\todo[color=LightGreen]{introduced in 2.2.1}
+that is incident on that interface, we can define a plane of incidence as in
+section \ref{sec:IsoSolution} and rotate the
+coordinate system so that it equals the yz-plane which simplifies the
+polarisation basis. This leaves the physical problem only invariant, if we
 assume an isotropic material as stated before.
 In that setting, the wave vector $\uline{k}_i$ for a particular mode $i \in
     \{L,TV,TH\}$ can be parametrised by the angle of incidence $\theta$ as
@@ -371,14 +387,14 @@ conclusion, that
     \omega = \omega_{in} = \omega_r = \omega_t
 \end{equation}
 After removing the common factor $e^{-i\omega t}$ from the equation and
-expressing the wave numbers by frequency and sound velocity over
+expressing the wave numbers by frequency and sound velocity as
 $k = \frac{\omega}{c}$, we get
 \begin{equation} \label{eq:snelliuscompare}
     a_{in}\ e^{i \frac{ \omega}{c_{T,1}}\sin\theta_{in} y}
     + a_{r}\ e^{i \frac{ \omega}{c_{T,1}}\sin\theta_{r} y}
     = a_{t}\ e^{i \frac{ \omega}{c_{T,2}}\sin\theta_{t} y}
 \end{equation}
-This however can be only fulfilled for all $y \in \mathbb{R}$, if the relations
+This however can be only fulfilled for all $y \in \mathbb{R}$ if the relations
 \begin{align}
     a_{in} + a_r                      & = a_t                            \\
     \frac{\sin\theta_{in}}{c_{T,1}} = & \frac{\sin\theta_{r}}{c_{T,1}} =
@@ -427,9 +443,10 @@ for participating mode $i \in\{L, TH, TV\}$ as
     t_i := \frac{a_{t,i}}{a_{in,i}}
 \end{align}
 Usually those coefficients have a functional dependency on the incident angle.
+
 % algebraic solution to single interface?
 \subsubsection{Total Internal Reflection}
-Total internal reflection is known as the phenomenon, when a wave is totally
+Total internal reflection is known as the phenomenon when a wave is totally
 reflected at a boundary for incident angles greater than a critical angle
 $\theta_{tot}$. If $c_1$ and $c_2$ are the phase velocities first and second
 medium, the outgoing angle
@@ -442,7 +459,7 @@ interpreted in the given wave formalism \cite[5]{brekhovskikh2012waves}. This
 interpretation also allows to extend the concept to two arbitrary polarisation
 modes that the wave can scatter inbetween, regardless of propagation direction.
 
-Considering the case $\theta_1 > \theta_{tot}$, $\theta_2$ takes the shape of
+Considering the case $\theta_1 > \theta_{tot}$, $\theta_2$ can be expressed as
 $\theta_2 = \frac{\pi}{2} + i\alpha,\ \alpha\in\mathbb{R}$. Inserting this into
 the general wave solution equation \ref{eq:wave_ansatz}, we need to calculate
 the wave vector $\uline{k}$ as in equation \ref{eq:k_fromangle}. This results
@@ -454,7 +471,7 @@ This complex wave vector inserted into the factor $e^{ik_zz}$ results in
 $e^{-k\sinh\alpha} z$ which represents an evanescent wave. This type of wave is
 attenuated exponentially so that the wave behaves as expected.
 
-In case of Frustrated total internal reflection this exponential behaviour
+In case of frustrated total internal reflection this exponential behaviour
 becomes relevant, when another interface is close to the first reflecting
 interface. Then it is possible for the usually totally reflected mode to
 transmit intensity into a mode of the third medium.
@@ -472,7 +489,7 @@ and similarly for a transversal elastic wave of a single polarisation mode
 where $a_T$ is either $a_{TV}$ or $a_{TH}$ depending on the regarded mode. This
 quantity is also known as time averaged intensity. By using the definition of
 $c_L$ and $c_T$ from equation \ref{eq:veldef} we get the more general relation
-\begin{equation}
+\begin{equation} \label{eq:generalIntensity}
     I_p = \frac{\rho\omega^2}{2} |a_p|^2 c_p
 \end{equation}
 with $p\in \{L,TH, TV\}$ denoting the polarisation mode. It should be noted
@@ -501,7 +518,7 @@ In the setting of an arbitrary polarised wave scattered at an interface,
 there are six possible outgoing modes as discussed previously.
 To get an energy relation between the intensities of each
 participating mode we consider the energy balance of a surface element
-$\Delta S$ of the interface, on which an arbitrary polarised beam with
+$\Delta S$ of the interface, on which an arbitrarily polarised beam with
 cross-sectional
 area $\Delta S_{0}$ and intensity $I_{in}$ is incident. The cross-sectional
 areas of the outgoing beams are named according to figure
@@ -511,7 +528,8 @@ incident TH polarised wave.
 The power each beam transmits or emits is given by the product $P_p = I_p\
     \Delta S_p$. $\Delta S_p$ is related to $\Delta S$ by $\Delta S_p =
     \cos\theta_p\ \Delta S$,
-$p$ denoting any of the depicted beams and $theta_p$ being the according angle.
+$p$ denoting any of the depicted beams and $\theta_p$ being the according
+angle.
 
 In conclusion, the energy balance results in
 \begin{align}
@@ -519,8 +537,8 @@ In conclusion, the energy balance results in
     + I_{i,t}\	\cos\theta_{i,t}
 \end{align}
 
-From that we can define reflectivity $\mathcal{R}$ and transmittivity
-$\mathcal{T}$ of the
+From that we can divide by $I_{in}\cos \theta_{in}$ and define reflectivity
+$\mathcal{R}$ and transmittivity $\mathcal{T}$ of the
 interface as fraction of reflected and transmitted power by
 \begin{align}
     \mathcal{R} := \frac{ I_{L,r}\  \cos\theta_{L,r} + I_{TH,r}
@@ -528,7 +546,7 @@ interface as fraction of reflected and transmitted power by
     I_{TV,r}  \cos\theta_{T,r}}{I_{in} \cos\theta_{in}} \\
     \mathcal{T} := \frac{ I_{L,t}\  \cos\theta_{L,t} + I_{TH,t}
         \cos\theta_{T,t} +
-    I_{TV,t}  \cos\theta_{T,t}}{I_{in} \cos\theta_{in}} \\
+        I_{TV,t}  \cos\theta_{T,t}}{I_{in} \cos\theta_{in}}
 \end{align}
 so that $\mathcal{R} + \mathcal{T} = 1$ is fulfilled. This can be later used to
 verify the  obtained results.
@@ -557,9 +575,12 @@ different for each material. %genauere beschreibung?
 %Angle propagation
 %only one incident mode allowed
 
-To evaluate the transmission through the stack of layers, it is now the task to
-calculate the coefficients $t_{N,i}$ and $r_{1,i}$ under given coefficients
-$t_{1,i}$ and with the assumption $r_{N,i}=0$ for all $i\in\{L,TH,TV\}$. We
+To evaluate the transmission through the stack of layers, it is the task is now
+to calculate the coefficients $t_{N,i}$ and $r_{1,i}$ given coefficients
+$t_{1,i}$ and with the assumption $r_{N,i}=0$ for all $i\in\{L,TH,TV\}$.
+\todo[color=LightGreen]{correct explanation?}
+This assumption can be made because we only consider the incoming power on the
+chip. Thermal radiation from the chip itself is significantly lower We
 further choose exactly one $t_{1,i}=1$ to mark the incident mode. This
 simplifies solving the problem and lets the coefficients $t_{N,i}$ and
 $r_{1,i}$ become the transmission and reflection coefficients of the layer
@@ -574,7 +595,9 @@ once at the lower boundary. This results in a phase shift of $e^{-ik_zd_n}$
 between upper and lower displacement.
 
 As many systems of equations this problem can be formulated with matrices. In
-the following, two similar solution methods are introduced.
+the following, two solution methods are introduced. In the later course, both
+methods will be compared to each other on the base of practical advantages and
+disadvantages.
 
 \begin{figure}[h]
     \centering
@@ -585,9 +608,10 @@ the following, two similar solution methods are introduced.
 \end{figure}
 
 \subsubsection{Transfer Matrix Method}
-To introduce the matrix formalism it is useful to focus on a single interface
-with index $n$ between layers $n-1$ and $n$ located at depth $z_n$. We can
-define a generalised state vector $\uline{v}_i$  in each layer $i$ as
+To introduce the matrix formalism of the Transfer Matrix Method (TMM) it is
+useful to focus on a single interface with index $n$ between layers $n-1$ and
+$n$ located at depth $z_n$. We can define a generalised state vector
+$\uline{v}_i$  in each layer $i$ as
 \cite{Fomenko2014}
 \begin{equation}
     \uline{v}_i = (u^{(i)}_1, u^{(i)}_2, u^{(i)}_3, \sigma^{(i)}_{13},
@@ -601,7 +625,7 @@ that the boundary conditions at the n-th interface $\mathcal{F}_n$ are
 \begin{equation}
     \uline{v}_n^+ = \uline{v}_{n+1}^-
 \end{equation}
-In addition to equation \ref{eq:gendisplacement} the stress components in
+In addition to equation \ref{eq:gendisplacement}, the stress components in
 $\uline{v}$ can be evaluated as well. From stress strain relation
 \ref{eq:HookStress3D} we get for an isotropic material
 \begin{align}
@@ -620,7 +644,7 @@ field \ref{eq:gendisplacement} into its definition $\epsilon_{ij} = \frac{1}{2}
 At this point it is neccessary to know all angles at which the different modes
 propagate through each layer in order to construct the equations as linear
 relations. These can be obtained by following the considerations of section
-\ref{sec:lawofrefr.}  Because of our limitation to one incident mode on the top
+\ref{sec:lawofrefr}.  Because of our limitation to one incident mode on the top
 layer, also only one propagation angle per distinct phase velocity in the
 medium is possible. From the structure of
 $\uline{u}^{(n)}$ it is possible to construct a $6\cross6$ matrix $M_n$ so that
@@ -638,24 +662,25 @@ exeption, $r_{0,i}$ and $t_{0,i}$ are defined directly at the first interface.
 $\uuline{P_n}(z)$ represents the phase factors due to wave propagation
 as diagonal matrix
 \begin{equation} \label{eq:PmatTMM}
-    \uuline{P_n}(z) = \mathit{diag}\{ e^{ik_{z,n}^{(L)}z},
+    \uuline{P_n}(z) = \text{diag}\{ e^{ik_{z,n}^{(L)}z},
     e^{ik_{z,n}^{(TH)}z},
     e^{ik_{z,n}^{(TV)}z}, e^{-ik_{z,n}^{(L)}z}, e^{-ik_{z,n}^{(TH)}z},
     e^{-ik_{z,n}^{(TV)}z}\}
 \end{equation}
-The addend $k_{y,n} y$ was removed from the expression as it does not change at
-the boundary. This automatically sets the phase of the displacement wave to
-zero at the upper boundary of the layer. The coefficients at the lower boundary
-are in the following denoted by $\uline{a}_n^\prime = \uuline{P_n}(-d_n)\
-    \uline{a}_n$.
+\todo[color=LightGreen]{clear?}
+The factor $e^{k_{y,n}^{(i)} y}$ was removed from the expression as it does not
+change at the boundary. This automatically sets the phase of the displacement
+wave to zero at the upper boundary of the layer. The coefficients at the lower
+boundary are in the following denoted by $\uline{a}_n^\prime =
+    \uuline{P_n}(-d_n)\ \uline{a}_n$.
 
 As a result the boundary conditions at an individual interface between layers
 $n-1$ and $n$ can be written as
 \begin{equation}
     \uuline{M}_{n-1}\ \uline{a}_{n-1}^\prime = \uuline{M}_{n}\ \uline{a}_{n}
 \end{equation}
-If we assume that $\uuline{M}_{n}$ is invertable, we can define the
-Transfermatrix $S_n$ by
+If we assume that $\uuline{M}_{n}$ is invertible, we can define the
+transfer matrix $S_n$ by
 \begin{equation}
     \uline{a}_{n} = \uuline{M}_{n}^{-1}\ \uuline{M}_{n-1}
     \uline{a}_{n-1}^\prime
@@ -664,9 +689,9 @@ Transfermatrix $S_n$ by
 which enables us to obtain the wave coefficients after scattering by a simple
 matrix multiplication.
 
-With this knowledge we can assemble a global transfermatrix for all interfaces
+With this knowledge we can assemble a global transfer matrix for all interfaces
 by
-\begin{equation}
+\begin{equation} \label{eq:Scomposition}
     \uuline{S} = \uuline{S}_N\cdot \uuline{P}_{N}(z_{N}-z_{N-1})\cdot
     \uuline{S}_{N-1} \cdot \uuline{P}_{N-1}(z_{N-1}-z_{N-2}) \cdots
     \uuline{S}_2
@@ -697,25 +722,32 @@ $\uline{t}_n$
 \subsubsection{Linear System of Equations}
 As an alternative, a more direct solving approach is presented by solving the
 system of linear equations with the inversion of a single matrix. This method
-will be called from now on LSE-method (Linear System of Equations). Its
-advantages and disadvantages will be discussed later.
+will be called from now on LSE-method (Linear System of Equations).
 
 For this method the coefficients for upgoing waves are defined to have their
 phase origin at the lower interface instead of the upper interface as defined
 in \ref{eq:PmatTMM}, so that the P-matrix becomes
 \begin{equation}
-    \uuline{P_n}(z) = \mathit{diag}\{ e^{ik_{z,n}^{(L)}z},
+    \uuline{P_n}(z) = \text{diag}\{ e^{ik_{z,n}^{(L)}z},
     e^{ik_{z,n}^{(TH)}z},
     e^{ik_{z,n}^{(TV)}z}, e^{-ik_{z,n}^{(L)}(z+d_n)},
     e^{-ik_{z,n}^{(TH)}(z+d_n)},
     e^{-ik_{z,n}^{(TV)}(z+d_n)}\}
-\end{equation}
+\end{equation}.
+The reason is that the diagonal entries evaluated at the layer boundaries $z=0$
+and $z=-d_n$ will now have always absolute values of $1$ or lower. The latter
+is true for total internal reflection in contrary to $\uuline{P}_n$ from TMM.
+
 For better clarity in notation we can rewrite matrix $\uuline{M}_n$ as
 composition of two $6\cross 3$ matrices $\uuline{M}_n = (\uuline{T}_n,
     \uuline{R}_n)$ and $\uuline{P}_n$ as block diagonal of two $3\cross 3$
 matrices $\uuline{P}_n = \mathit{diag}\{\uuline{D}_n(z),\
     \uuline{D}_n(-(z+d_n))
-    \})$. The boundary conditions at interface $n$, below layer $n$ are then
+    \})$. The diagonal matrix $\uuline{D}_n$ is here defined as a $3\cross3$
+diagonal matrix with $\uuline{D}_n(z) = \text{diag}\{ e^{ik_{z,n}^{(L)}z},
+    e^{ik_{z,n}^{(TH)}z}, e^{ik_{z,n}^{(TV)}z}\}$
+
+The boundary conditions at interface $n$, below layer $n$ are then
 \begin{equation}
     \left(\uuline{T}_n,\ \uuline{R}_n\cdot \uuline{D}_n(-d_{n}) \right)
     \begin{pmatrix} \uline{t}_n \\ \uline{r}_n \end{pmatrix} =
@@ -737,28 +769,28 @@ total
 system is constructed as $6N \cross 6N$ matrix
 \begin{equation}
     \begin{pmatrix}
-        \uuline{R}_0        & -\uuline{T}_1           & -\uuline{R}_1^\prime &
+        \uuline{R}_0         & -\uuline{T}_1           & -\uuline{R}_1^\prime &
         0
-                            & 0                       & \cdots               &
+                             & 0                       & \cdots               &
         0
         \\
-        0                   & \uuline{T}_1^\prime     & \uuline{R}_1         &
-        \uuline{T}_2        &
-        \uuline{R}_2^\prime & \cdots                  & \vdots
+        0                    & \uuline{T}_1^\prime     & \uuline{R}_1         &
+        -\uuline{T}_2        &
+        -\uuline{R}_2^\prime & \cdots                  & \vdots
         \\
-        \vdots              & \ddots                  & \ddots               &
-        \ddots              & \ddots                  & \ddots               &
+        \vdots               & \ddots                  & \ddots               &
+        \ddots               & \ddots                  & \ddots               &
         \vdots
         \\
-        \vdots              & \ddots                  & \ddots               &
-        \ddots              & \ddots                  & \ddots               &
+        \vdots               & \ddots                  & \ddots               &
+        \ddots               & \ddots                  & \ddots               &
         \vdots
         \\
-        0                   & \cdots                  & \cdots               &
+        0                    & \cdots                  & \cdots               &
         0
-                            & \uuline{T}_{N-1}^\prime & \uuline{R}_{N-1}
-                            &
-        \uuline{T}_{N}
+                             & \uuline{T}_{N-1}^\prime & \uuline{R}_{N-1}
+                             &
+        -\uuline{T}_{N}
 
     \end{pmatrix}
     \begin{pmatrix}
@@ -771,5 +803,8 @@ system is constructed as $6N \cross 6N$ matrix
         \uline{r}_N
     \end{pmatrix}
 \end{equation}
-to be able to invert it. By setting $\uline{r}_N = 0$ as before we obtain
-$\uline{r}_0$ and $\uline{t}_N$ after inverting the $16\cross 16$ matrix.
+The transfer of $\uuline{T}_0\uline{t}_0$ and $\uuline{R}_{N}\ \uline{r}_N$
+is neccessary to ensure quadratic shape of the matrix which is neccessary for
+inversion. However, this limits the number of interfaces to $N > 1$.
+By setting $\uline{r}_N = 0$ as before we obtain
+$\uline{r}_0$ and $\uline{t}_N$ after inverting the $6N\cross 6N$ matrix.

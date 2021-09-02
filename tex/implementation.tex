@@ -1,0 +1,100 @@
+On basis of the preceding theory a full simulation of acoustic wave propagation
+through multilayer structures was developed. This will be
+described in more detail in the following aiming to provide a short
+introduction into code structure and functionality. Arisen challenges and their
+solution will be presented afterwards.
+
+\section{Code Structure and Functionality}
+The main components of the project are represented by the three python modules
+\texttt{dbr.py}, \texttt{materials.py} and \texttt{plotfunctions.py} to
+organise written methods by purpose.
+
+\texttt{materials.py} contains elastic parameters of materials that where
+considered for usage in a reflector structure. Each entry is a python function
+that returns density $\rho$ and elastic constants $\lambda$ and $\mu$. Most
+databases accessible through the internet contain different elastic constants
+like Young`s Modulus or Poisson`s ratio, so that those are converted with help
+of a formula table as in \cite[30]{kundu2012ultrasonic} \todo{Formeln in
+    Theorieteil?}. The exact materials and their sources are listed in table
+\todo{reference to material parameters}
+
+The file \texttt{dbr.py} contains the most important simulation tools. Those
+functions are structured in two classes, \texttt{Reflector} and \texttt{Layer}
+to reduce the number of parameters to be passed to the next method.
+
+The main idea for the \texttt{Layer} class, is to wrap the important material
+parameters $\lambda$, $\mu$ and $\rho$ passed from a material parameter
+function and to convert them internally to sound velocities $c_i$ and elastic
+tensor. In addition, each object stores its thickness and material name. The
+latter is useful for fast identification of the layer material and debugging
+outputs.
+Also, it contains several methods for calculation of Layer specific
+quantities. One of those quantities is \texttt{getConditionMatrix()} which
+assembles the condition matrix $\uuline{M}_n$ for given incident angle
+$\theta$ and frequency $\omega$. In the process, the layer specific wave vector
+$\uline{k}_i$ is calculated by \texttt{Layer.getK()} for every mode from
+incident angle and frequency. The phase velocities are accessed from the
+object. Calculation of polarisation vectors (\texttt{getPolarisations()}) and
+strain tensor (\texttt{getStrain()}) follows the same principle. The functions
+\texttt{Intensity()} implementing equation \ref{eq:generalIntensity} and
+\texttt{getPropagationMatrix()} implementing $\uuline{P}_n$ from equation
+\ref{eq:PmatTMM} support the later mentioned methods from
+\texttt{Reflector}.
+
+To construct a layer structure that can be evaluated by the simulation tools of
+\texttt{Reflector}, those \texttt{Layer} objects can be assembled in a list,
+which indicates the order of Layers in the reflector structure. Together with
+the defined thicknesses of each \texttt{Layer} object this forms an unambiguous
+representation of a physical layer structure.
+
+This list of \texttt{Layer} objects is then passed to the constructor of a
+\texttt{Reflector} object and stored as deep copy of the initial list to avoid
+bugs through references to the same object. Besides, the layer thicknesses are
+extracted and stored internally in a separate list which is used exclusively
+over the object stored thicknesses. The first and the last given
+layer are assumed to embed the remaining layers, so that their thickness
+defined in the \texttt{Layer} object has no meaning. For convenience in the
+simulation functions, the thicknesses of first and last layer are set to $0$
+in \texttt{Reflector.\_\_init\_\_()}. The thickness configuration can be
+changed
+with \texttt{setThicknesses()} and a full text representation of the current
+configuration can be generated with \texttt{info()}.
+
+\subsection{Algorithms and their Scope of Application }
+There are four methods implemented to calculate the transmittivity function
+$\mathcal{T}_i(\omega, \theta)$ differing in numerical stability and speed.
+Those are \ttt{TransferMethod()} and \ttt{TransferMethodMP()}, which implement
+the Transfer Matrix Method. On the other side \ttt{LSEMethod()} and
+\ttt{SingleLSEMethod()} implement the described LSE method.
+To explain their coexistence, it is helpful to describe them in the order of
+their development.
+
+The first attempt was \ttt{TransferMethod()}. The TMM offers the most promising
+properties with regard to computation time for large systems, because existing
+matrix mulitplication algorithms as implemented in the \ttt{numpy} package can
+be used and the addition of layers to the problem only increases the
+computation time linearly. The latter becomes apparent when considering
+equation \ref{eq:Scomposition}.
+
+The concrete implementation is as follows. \ttt{TransferMethod()} called with
+arrays of circular frequencies $\omega$, incident angles $\theta$ and the
+coefficient vector $t_0$ passes those parameters first to
+\ttt{getTotalTransfermatrix()}. This function calculates the $\uuline{S}$
+matrix for the entire system as in equation \ref{eq:Scomposition}. The function
+iterates in a python \ttt{for}-loop over all defined interfaces. In each
+iteration $n$, the transmitted angles from the previous interface
+$\theta_{n-1,i}$
+are used as incident angles on the current interface $n$. Those are needed to
+calculate the wave vectors and the propagation matrix $\uuline{P}_n$ with
+\ttt{getK()} and \ttt{getPropagationMatrix()} called on the upper Layer object.
+$\uuline{S}_n$ is also calculated from $\theta_n$ and $\omega$ with
+\ttt{TransferMatrix()}. Those two matrices, $\uuline{S}_n$ and $\uuline{P}_n$
+are then multiplied to the evolving total S-matrix of the previous iteration 
+$\uuline{S}_{n-1}^\prime$ as
+\begin{equation}
+    \uuline{S}_n^\prime = \uuline{S}_{n-1}
+\end{equation}
+
+\todo{concrete form of condition matrix im in appendix}
+
+%BraggFreq
