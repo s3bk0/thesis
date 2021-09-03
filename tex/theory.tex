@@ -468,7 +468,7 @@ in
     k_y & = k \sin\theta_2 = k \cosh\alpha & k_z= k \cos\theta = ik \sinh\alpha
 \end{align}
 This complex wave vector inserted into the factor $e^{ik_zz}$ results in
-$e^{-k\sinh\alpha} z$ which represents an evanescent wave. This type of wave is
+$e^{-k\sinh\alpha z}$ which represents an evanescent wave. This type of wave is
 attenuated exponentially so that the wave behaves as expected.
 
 In case of frustrated total internal reflection this exponential behaviour
@@ -476,7 +476,9 @@ becomes relevant, when another interface is close to the first reflecting
 interface. Then it is possible for the usually totally reflected mode to
 transmit intensity into a mode of the third medium.
 
-\subsubsection{Conservation of Energy at a Single Interface}
+\subsubsection{Conservation of Energy} \label{sec:sanitycheck}
+Since acoustic waves transport energy, we can define an intensity for them and
+consider the conservation of energy at an interface.
 According to \cite[166]{achenbach1973wave} the transmitted time averaged power
 per unit area of a transversal elastic wave in a homogeneous medium is
 \begin{equation}
@@ -548,8 +550,14 @@ interface as fraction of reflected and transmitted power by
         \cos\theta_{T,t} +
         I_{TV,t}  \cos\theta_{T,t}}{I_{in} \cos\theta_{in}}
 \end{align}
-so that $\mathcal{R} + \mathcal{T} = 1$ is fulfilled. This can be later used to
-verify the  obtained results.
+so that $\mathcal{R} + \mathcal{T} = 1$ is fulfilled.
+
+This can be easily extended to multi layer structures replacing the single
+interface by the multi layer system so that the transmitted intensities are the
+intensities that propagated through the whole structure.
+
+The relation $\mathcal{T}+\mathcal{R}=1$ can then be used to verify the
+obtained results for any layer structure.
 
 \subsection{Scattering at a System of Layers}
 The considerations of one interface can now be extended to a system of $N$
@@ -709,11 +717,11 @@ are
 \end{equation}
 Remembering that $\uline{r_n}=0$, we can solve for $\uline{r}_1$ and
 $\uline{t}_n$
-\begin{align}
+\begin{align} \label{eq:TMMcoeffsr}
     \uline{r}_1 & = -\uuline{R}^{-1}\ \uuline{C}_2\ \uline{t}_1             \\
     \uline{t}_n & = \begin{pmatrix} \uuline{T},& \uuline{C}_1 \end{pmatrix}
     \cdot \begin{pmatrix} \uline{t}_1 \\ -\uuline{R}^{-1}\ \uuline{C}_2\
-              \uline{t}_1\end{pmatrix}
+              \uline{t}_1\end{pmatrix} \label{eq:TMMcoeffst}
 \end{align}
 %@appendix:
 % exact extraction of matrix elements,
