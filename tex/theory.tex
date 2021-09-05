@@ -442,7 +442,20 @@ for participating mode $i \in\{L, TH, TV\}$ as
     r_i := \frac{a_{r,i}}{a_{in,i}} \\
     t_i := \frac{a_{t,i}}{a_{in,i}}
 \end{align}
-Usually those coefficients have a functional dependency on the incident angle.
+which usually have a functional dependency on the incident angle. With
+introducing the impedance $Z(\theta)$ of mode $i$ of a medium as
+\begin{equation}
+    Z_i(\theta ) = \frac{\rho c_i}{\cos\theta}
+\end{equation}
+it is possible to obtain the simple relations
+\begin{align}
+    r_{TH} = \frac{Z_{in,TH}-Z_{out,TH}}{Z_{in,TH}+Z_{out,TH}} \\
+    t_{TH} = \frac{2 Z_{in,TH}}{Z_{in,TH}+Z_{out,TH}}
+\end{align}
+describing the refraction of $TH$ polarisation from analogous calculations
+with electromagnetic waves \cite[46,14]{brekhovskikh2012waves}. Analytic
+solutions for the remaining modes are much more complex and can be looked up in
+\cite[83]{ewing1957elastic}.
 
 % algebraic solution to single interface?
 \subsubsection{Total Internal Reflection}
@@ -658,8 +671,9 @@ medium is possible. From the structure of
 $\uline{u}^{(n)}$ it is possible to construct a $6\cross6$ matrix $M_n$ so that
 \begin{equation}
     \uline{v}_n(z) = \uuline{M_n}\ \uuline{P_n}(z-z_n)\uline{a}_n
-\end{equation}
-The coefficient vector $\uline{a_n}$ of layer $n$ is defined as
+\end{equation}.
+This step is considered in detail in the appendix. The coefficient vector
+$\uline{a_n}$ of layer $n$ is defined as
 \begin{equation}
     \uline{a}_n = (\uline{t}_n, \uline{r}_n)^T	= (t_{n,L}, t_{n,TH}, t_{n,TV},
     r_{n,L}, r_{n,TH}, r_{n,TV})^T
@@ -816,3 +830,62 @@ is neccessary to ensure quadratic shape of the matrix which is neccessary for
 inversion. However, this limits the number of interfaces to $N > 1$.
 By setting $\uline{r}_N = 0$ as before we obtain
 $\uline{r}_0$ and $\uline{t}_N$ after inverting the $6N\cross 6N$ matrix.
+
+\subsection{Properties of Distributed Bragg Reflectors}
+In case of normal incidence on the reflector, the modes L and TV do not mix
+and the relations of transmission and reflection become analoguous to optical
+waves. This can be seen from \ref{eq:generalsnell} and the fact, that a
+displacement normal to the interface does not produce a parallel displacement
+and the other way round.
+Therefore, fundamental properties of Distributed Bragg Reflector for optical
+waves apply here as well.
+
+For the following considerations, many optic based sources are reinterpreted
+as acoustic quantities. The already mentioned concept of impedance is also
+applicable to electromagnetic waves by defining it as the ratio of electric
+magnetic field amplitude in the medium \cite{brekhovskikh2012waves}. This
+evaluates to
+\begin{equation}
+    Z = \sqrt{\frac{\mu_0\mu_r}{\epsilon_0\epsilon_r}} = Z_0 \frac{\mu_r}{n}
+\end{equation}
+with vacuum permeability $\mu_0$ and vacuum perimittivity $\epsilon_0$ and
+the relative permaebility and permittivity denoted by r. $Z_0$ is the vacuum
+impedance. It is usual to assume $\mu_r=1$ as most regarded materials are non
+magnetic, so that $Z = Z_0/n$ is valid. As a result, relations for optical
+Bragg reflectors at normal incidence can be easily converted to relations for 
+acoustic waves under normal incidence.
+
+The typically used DBR structure consists of a repeated unit cell of two layers
+with impedances $Z_{1,i}$ and $Z_{2,i}$ for different modes $i$. The
+thicknesses are often chosen to have a thickness of a quarter wavelength
+of a selected frequency mode to be reflected. With sufficient number of
+repetitions of this unit cell, spectral band gaps form, where waves with the
+selected frequency and a certain interval around it are reflected with high
+reflectivities. Moreover, the described setup within the unit cell proves to
+maximize the spectral gap width to mid gap frequency ratio
+$\frac{\Delta f}{f_0}$ \cite{Osting2012}.
+
+In a more general setup, where a the single layers do not have exactly the
+thickness of a quarter wavelength of a selected frequency mode, there will be
+still a developement of frequency stop bands. This is because of the
+periodicity of the unit cell. For electromagnetic waves the stop bands form
+around the bragg wavelength
+\begin{equation}
+    m\lambda_B/2 = n_1 d_1 + n_2 d_2 \quad\quad m=1,2,3,\ ...
+\end{equation}
+with refraction indices $n_i=\frac{c_0}{c_i}$. To get an analogous relation for
+elastic waves, we can simply replace the vacuum speed of light $c_0$ by an
+arbitrary sound velocity. If $\lambda_B$ is then expressed as bragg frequency
+$f_B = \frac{c_0}{\lambda_B}$ we get a similar result with known quantities as
+\begin{equation}
+    2\frac{f_B}{m} = \left(\frac{d_1}{c_1}+\frac{d_2}{c_2}\right)^{-1} =
+    \left(\frac{\rho_1 d_1}{Z_1}+\frac{\rho_1 d_2}{Z_1}\right)^{-1}
+\end{equation}
+which is also valid for acoustic waves. In addition to the described position
+of the bandgaps, also their width can be derived. It appears, that the spectral
+gap width to bragg frequency ratio of the first bandgap can be expressed as
+\begin{equation}
+    \frac{\Delta f}{f_B} = \frac{4}{\pi} \arcsin \left( \frac{|Z_1-Z_2|}{Z_1+Z_2}
+    \right)
+\end{equation}
+These relations can be used to verify the obtained results from the simulation.
