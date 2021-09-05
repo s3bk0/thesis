@@ -21,3 +21,4 @@ indent.log
 tex/theory.tex
 .gitignore
 outlineImplementation.docx
+build/tex/simulations.aux
