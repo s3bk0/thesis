@@ -222,9 +222,12 @@ The intermediate results of this calculation may be of interest as well. For
 this purpose, \ttt{plotfunctions.py} provides a number of plot functions and
 scripts that were also used to generate the plots in the later course of this
 thesis. The first important plot funtion is \ttt{plotAngluarTransmission()}.
-It visualizes the reflection and transmission coefficients of all three modes
-as well as the resulting transmittivity and reflectivity as functions of
-incident angle for a fixed frequency. This can be viewed in figure
+It produces three subplots. In the first, the absolute values of the reflection
+coefficients are shown which represent the reflected amplitudes. The plot below
+does the same for the transmission coefficients. In the lowermost plot the
+resulting transmittivity and reflectivity are shown as functions of
+incident angle for a fixed frequency. Also their sum is displayed as proof of 
+correctness of the values. This can be viewed for example in figure
 \todo{Angular Plot reference}.
 
 In comparison to that, \ttt{plotOverview()} accepts transmittivity values from
@@ -247,7 +250,7 @@ These plot functions also exist in form of a script like function, that
 generates the necessary transmission values by itself and directly provide the
 output as plot.
 
-Ín addition to these evaluation plots, there an additional utility function
+Ín addition to these evaluation plots, there is an additional utility function
 called
 \ttt{EffectivityOverThickness()}. It is an attempt to automatise the
 optimisation process that will be described later. The method calculates the
@@ -261,3 +264,4 @@ and has only limited significance.
 % \subsection{Example Workflow}
 % As a practical summary of the previous description, a short 
 \todo[color=LightGreen]{ Example Workflow still advantageous?}
+cite

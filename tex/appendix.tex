@@ -1,4 +1,17 @@
 \section{Concrete Form of the Condition Matrices}
+In this section the construction of the condition matrices $\uuline{M}_n$ from
+equation \ref{eq:statevector} is considered in more detail.
+With the general wave solution equation \ref{eq:gendisplacement} the strain
+tensor evaluates to
+\begin{align}
+    \epsilon_{ij} = \frac{i}{2} \left(
+    (\uline{\vu{e}}_i\cdot \uline{u}(\underline{x}, t))\
+    (\uline{\vu{e}}_j\cdot \uline{k}^t_{n})
+    + (\uline{\vu{e}}_j\cdot  \uline{u}(\underline{x}, t))\
+    (\uline{\vu{e}}_i\cdot \uline{k}^t_{n}) \right) \\
+    = \frac{i}{2}\sum\limits_{p\in\{L,TH,TV\}} 
+    t_p\ \epsilon_{ij,p} + r_p\ \epsilon_{ij,p} 
+\end{align}
 
 
 \section{Detailed Plots Picturing Scopes of Numerical Instabilites}

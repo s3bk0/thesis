@@ -1,19 +1,109 @@
-\todo[inline]{Introduction to notation, (vectors,tensors)}
-In order to understand the complexity of the problem \todo{justification for
-    modelling with elastic waves} and the
-utilised solving method, it is reasonable to revisit some fundamental concepts
-in the following chapter. At the same time, a consistent notation is
-introduced. At first, the tensor formalism for elastic properties
-of rigid bodies is introduced. After that, elastic waves are derived and
-analysed further. This discussion will be mostly based on \cite{GrossMarx2014},
+Subsequent to the description of the aim it is useful to revisit the related
+concepts in more detail to justify the utilised solving methods
+At the same time, a consistent notation is introduced.
+
+Firstly, the kinetic transport theory of phononic heat conduction is considered
+with more care in order to justify the integral from the introduction.
+After that, the tensor formalism for elastic properties
+of rigid bodies is introduced and elastic waves are derived and
+analysed further. At the end, it is shown how wave propagation through
+multilayer structures can be calculated and also some special cases are
+considered. This discussion will be mostly based on \cite{GrossMarx2014},
 if not otherwise stated.
-\todo{check if description still applies, citation?}
 
 It should be noted in advance, that vectors are
 denoted by a single underline and tensors or
 tensor fields of higher order by a number of underlines corresponding to their
 order. Also, Einstein summation convention should be applied if no explicit
 summation is given in the same formula.
+
+\section{Kinetic Transport Theory of Phononic Heat Conduction}
+In solids, heat is transported by both phonons and electrons.  However, we
+consider only structures that are electrically insulating in total, so that
+we can model thermal heat conduction by considering only phonons.
+
+A typical situation for analysing heat conduction requires a spatial variation
+of temperature. We assume this variation of temperature to be so small, that in
+a sufficiently large spatial region with temperature $T$ we can define the mean
+number of phonons $\expval{n}$ in frequency mode $\omega$ as
+\begin{equation}
+    \expval{n} = n_B(\omega,T) = \frac{1}{e^{\frac{\hslash \omega}{k_BT}} - 1 }
+\end{equation}
+with reduced Planck constant $\hslash$ and Boltzmann constant $k_B$.
+
+On macroscopic scales, these phonons move through the material and scatter
+statistically after traveling the mean free path $\Lambda$. In general,
+heat transport by phonons can be described by the phonons diffusing through
+the material and thereby transporting energy. However, as other quasi
+particles they can be modelled as waves but interference effects can be only
+exploited, if the interfering waves have a constant phase difference. For this
+reason, a structure reflecting phonons needs to be sufficiently smaller than
+that mean free path.
+
+To quantify the heat transport, we can look at the heat quantity $\Delta Q$
+that is transported through a reference plane with area $A$ per time interval
+$\Delta t$ by phonons of fixed mode $\omega$. This energy can be calculated by
+multiplying the spectral phonon energy density $\frac{\epsilon(\omega,T)}{V}$
+by the volume of phonons propagating through $A$ with velocity $v$ which
+results in
+\begin{equation}
+    \frac{\Delta Q}{\Delta t} = \frac{\epsilon(\omega, T)}{V}\ A\cdot v_z
+\end{equation}
+. The mean energy per mode is given by $\epsilon(\omega, \theta) = \hslash
+    \omega \expval{n}$ neglecting ground state energy $\hslash \omega / 2$
+that is not relevant for heat conduction. Summing over all phonon modes
+$\underline{k}_n$ and polarisations $i$ we can calculate the total heat flux
+in z-direction by
+\begin{equation}
+    J_z = \frac{\Delta Q}{\Delta t\ A} = \frac{1}{V} \sum\limits_{
+        \uline{k_n}, i}\hslash \omega(\uline{k_n})
+    n_B(\omega(\underline{k_n}),T) v_z(\uline{k_n})
+\end{equation}
+.
+As the qubits are cooled to temperatures of less than $\SI{30}{mK}$, the
+temperature of the uppermost medium is also at low Kelvin temperatures. This
+justifies using the Debye model for the description of phonons which assumes
+linear dispersion $\omega(\uline{k})=c_i |\uline{k}|$.
+In that model the phonon velocity results in $v = \diff{\omega}{k}=c$ and we
+can
+approximate the
+sum over all phonon modes $\uline{k}_n$ in the continuum limit as integral,
+resulting in
+\begin{equation}\label{eq:genheatflow}
+    J_z = \sum\limits_{i=\{L,TV,TH\}}\ \int_0^{\omega_c}\int_{\theta, \phi}
+    g_i(\omega)\ n_B(\omega, T)\
+    \hslash \omega\  c_i\cos \theta \dd{\omega} \dd{\theta}\dd{\phi}
+\end{equation}
+. The mentioned density of states per unit volume and mode takes the form of
+$g_i(\omega)= \frac{\omega^2}{2\pi^2 c_i^3}$ \cite{Simon2016} which is only
+validwith Debye frequency $\omega_D = (6\pi^2 n c_i^3)^{1/3}$ as cutoff
+frequency $\omega_c$. Here, $n$ is the atomic density of the uppermost medium.
+The quantity that is calculated by executing the angle integration of equation
+\ref{eq:genheatflow} yields the spectral radiance of the upper medium.
+
+In a setup, where a multi layer structure can reflect incoming phonons,
+we can define the transmittivity $\mathcal{T}(\omega,\theta, \phi)$ as
+probability for a phonon of incident angles $\theta$ and $\phi$ to be
+transmitted through the structure. Its value can be determined from
+the scattered intensites as it will be discussed later. Inserting
+$\mathcal{T}_i(\omega, \theta, \phi)$ into the derived heat flux yields
+the transmitted heat flux through a reflector structure as presented in
+equation \ref{eq:totalheatflow}.
+
+With atomic densities
+of order $10^{28}\si{\frac{1}{m^3}}$ and sound velocities of order
+$10^3\si{\frac{m}{s}}$, the Debye frequency can approximated to be in
+the order of $10^{13}\si{s^{-1}}$. The spectral radiance for these frequencies
+at $T=1.8\ \si{K}$ is less than a thousandth of its maximum value, so that it
+is
+sufficient to choose a lower, not material dependent
+cutoff of $\omega_c=3\cdot 10^{12}\si{\frac{1}{s}}$.
+
+In this frequency range the resulting wavelengths which are given by
+$\lambda= \frac{2\pi c}{\omega}$, are in the order of few nanometers, so that
+lattice properties of the materials can be neglected. Also, elastic
+anisotropies that may occur in crystal structures are simplified to an
+isotropic material with averaged properties.
 
 \section{Elastic Properties of Materials}
 In the following, the formalism for bulk elastic properties of materials is
@@ -31,7 +121,6 @@ Considering an object of length $l$ and cross-sectional area $A$,
      & \text{Stress} \quad \quad \sigma := \frac{F}{A}
      & \text{Strain} \quad \quad \epsilon := \frac{\Delta l}{l}
 \end{align}.
-
 Hooke`s law can now be reformulated as
 \begin{equation}
     \label{eq:HookStress1D}
@@ -449,7 +538,7 @@ introducing the impedance $Z(\theta)$ of mode $i$ of a medium as
     Z_i(\theta ) = \frac{\rho c_i}{\cos\theta}
 \end{equation}
 it is possible to obtain the simple relations
-\begin{align}
+\begin{align} \label{eq:theoSingleTH}
     r_{TH} = \frac{Z_{in,TH}-Z_{out,TH}}{Z_{in,TH}+Z_{out,TH}} \\
     t_{TH} = \frac{2 Z_{in,TH}}{Z_{in,TH}+Z_{out,TH}}
 \end{align}
@@ -465,9 +554,9 @@ reflected at a boundary for incident angles greater than a critical angle
 $\theta_{tot}$. If $c_1$ and $c_2$ are the phase velocities first and second
 medium, the outgoing angle
 \begin{equation}
-    \theta_2 = \arcsin( \frac{c_1}{c_2} \sin(\theta_1)) \quad c_2 < c_1
+    \theta_2 = \arcsin( \frac{c_2}{c_1} \sin(\theta_1)) \quad c_2 > c_1
 \end{equation}
-has no real solution for $\theta_1 > \theta_{tot} = \arcsin \frac{c_2}{c_1}$.
+has no real solution for $\theta_1 > \theta_{tot} = \arcsin \frac{c_1}{c_2}$.
 There is however a complex solution and this resulting complex angle can be
 interpreted in the given wave formalism \cite[5]{brekhovskikh2012waves}. This
 interpretation also allows to extend the concept to two arbitrary polarisation
@@ -670,7 +759,7 @@ relations. These can be obtained by following the considerations of section
 layer, also only one propagation angle per distinct phase velocity in the
 medium is possible. From the structure of
 $\uline{u}^{(n)}$ it is possible to construct a $6\cross6$ matrix $M_n$ so that
-\begin{equation}
+\begin{equation} \label{eq:statevector}
     \uline{v}_n(z) = \uuline{M_n}\ \uuline{P_n}(z-z_n)\uline{a}_n
 \end{equation}.
 This step is considered in detail in the appendix. The coefficient vector
@@ -853,7 +942,7 @@ with vacuum permeability $\mu_0$ and vacuum perimittivity $\epsilon_0$ and
 the relative permaebility and permittivity denoted by r. $Z_0$ is the vacuum
 impedance. It is usual to assume $\mu_r=1$ as most regarded materials are non
 magnetic, so that $Z = Z_0/n$ is valid. As a result, relations for optical
-Bragg reflectors at normal incidence can be easily converted to relations for 
+Bragg reflectors at normal incidence can be easily converted to relations for
 acoustic waves under normal incidence.
 
 The typically used DBR structure consists of a repeated unit cell of two layers
@@ -886,7 +975,8 @@ which is also valid for acoustic waves. In addition to the described position
 of the bandgaps, also their width can be derived. It appears, that the spectral
 gap width to bragg frequency ratio of the first bandgap can be expressed as
 \begin{equation}
-    \frac{\Delta f}{f_B} = \frac{4}{\pi} \arcsin \left( \frac{|Z_1-Z_2|}{Z_1+Z_2}
+    \frac{\Delta f}{f_B} = \frac{4}{\pi} \arcsin \left(
+    \frac{|Z_1-Z_2|}{Z_1+Z_2}
     \right)
 \end{equation}
 These relations can be used to verify the obtained results from the simulation.

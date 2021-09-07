@@ -1,18 +1,22 @@
 In recent years quantum computing technology has been of rising
 interest to scientists and the public. The early steps of exploiting the nature
-of quantum states by fabricating and controlling qubits [refs] are
-overcome and quantum supremacy, the supremacy of quantum computers over
-classical computers, is already achieved [ref]. With scalable concepts for many
-different implementations [refs] it is only a matter of time until quantum
-computers can be used commercially.
+of quantum states by fabricating and controlling individual qubits [refs] are
+overcome and computational advantage of quantum processors over
+classical computers, has already been demonstrated in some cases
+\cite{Arute2019}. With scalable concepts for many
+different implementations \cite{Cirac2000,Brecht2016,Bluhm2019,Lao2018} it is
+only a matter of time until quantum computers can be used commercially.
 
 However, there are still a some hurdles to overcome before current setups are
 at this level. One of them is to reduce the decoherence time. It is crucial for
-the execution of large operations or algorithms and strongly
+the execution of long operations or algorithms and strongly
 depends on external conditions like for example, the influence of thermal
-radiation caused by photons or phonons[refs]. In solid state qubits, heat
-transfer by phonons is mostly enabled by electronics connected to the chip.
-This could be solved by a intermediate medium with very low thermal
+radiation consisting of photons or heat conduction from phonons or
+electrons[refs].\todo{Bin leider nicht mehr dazu gekommen hier sinnvoll
+    weiterzumachen} In solid state qubits, heat transfer by phonons is mostly
+enabled by electronics connected to the chip.
+The reduction of the decoherence time caused from heat conduction to the qubit
+could be solved by an intermediate medium with very low thermal
 conductivity shielding the chip from thermal phonons.
 
 \section{Superlattice Structures for Thermal Isolation}
@@ -42,7 +46,10 @@ through arbitrary multilayer structures. With this tool some configurations
 with different materials will be considered so that only an acceptable heat
 flux can pass the reflector. %porosity
 Based on the cooling power of current kryostats it is estimated, that the
-transmitted heat flux needs to be in the order of $10\ \si{mW}$.
+transmitted heat flux needs to be in the order of $10\ \si{mW}$. Also,
+for any power considerations the upper temperature is assumed to be
+$T=1.8\si{K}$
+which is a temperature that can be achieved comfortably with current methods.
 
 In contrast to the optical case, the complete spectrum of thermal
 radiation for all incident angles $\theta$ and polarisation modes $i$ is
@@ -51,7 +58,7 @@ relevant for the total expected heat flow through the reflector
     J_z = \sum\limits_{i=\{L,TV,TH\}}\ \int_0^{\omega_c}\int_{\theta, \phi}
     \mathcal{T}_i(\omega, \theta, \phi)\ g_i(\omega)\ n_B(\omega, T)\
     \hslash \omega\  c_i\cos \theta \dd{\omega} \dd{\theta}\dd{\phi}
-\end{equation} \todo{normalisation factor for angle integrations?}
+\end{equation}
 which will be justified later. The integrant
 consists of the transmittivity function $\mathcal{T}_i(\omega, \theta, \phi)$
 which is defined as proportion of transmitted intensity and can be interpreted
@@ -64,36 +71,29 @@ the emitted power per frequency and spatial angle in z-direction. The exact
 form of $g_i(\omega)$ and $\omega_c$ is given by the Debye model which can be
 applied here.
 
-As qubits are cooled to temperatures of less than $\SI{30}{mK}$, the
-temperature of the uppermost medium is also at low Kelvin temperatures. This
-justifies using the Debye model for the description of phonons which assumes
-linear dispersion $\omega(\uline{k})=c_i |\uline{k}|$. For that reason,
-the calculation needs to be cut off at the Debye frequency
-$\omega_D = (6\pi^2 n c_i^3)^{1/3}$ where $n$ is the atomic density.
-In the following work the upper temperature is assumed to be $T=1.8\si{K}$
-which is a temperature that can be achieved comfortably with current methods.
-With atomic densities of order $10^{28}\si{\frac{1}{m^3}}$ and sound velocities
-of order $10^3\si{\frac{m}{s}}$, the Debye frequency can approximated to be in
-the order of $10^{13}\si{s^{-1}}$. The spectral radiance for these frequencies
-at $T=1.8\ \si{K}$ is less than a thousandth of its maximum value, so that the
-present calculations will be performed with a lower, not material dependent
-cutoff of $\omega_c=3\cdot 10^{12}\si{\frac{1}{s}}$.
-In this frequency range the resulting wavelengths which are given by
-$\lambda= \frac{2\pi c}{\omega}$, are in the order of few nanometers, so that
-lattice properties of the materials can be neglected. Also, elastic
-anisotropies that may occur in crystal structures are simplified to an
-isotropic material with averaged properties.
+\section{Previous Work}
+The described aim of developing a simulation environment for elastic wave
+propagation through multilayer structures has been already pursued by Sebastian
+Miles in the scope of a HiWi project for the institute. The level of
+developement at the time of my aquisition consisted of the two
+implementations for the later described Transfer Matrix Method and the LSE
+Method, which could only deliver valid results for cases without mixing of
+modes at an interface and also similar numerical issues that were encountered
+in this work. In order to avoid adopting those errors, the here described
+implementation was written independently.
 
-\todo[inline]{Previous Paragraph: Is this much detail useful in the
-    introduction or
-    should it be moved to the theory chapter together with the justification
-    of \ref{eq:totalheatflow} ?}
+However, a large part of the theoretical foundations of the described methods
+were researched and summed up in a currently not published paper by Miles. The
+present theoretical introduction follows it roughly and is worked out with more
+detail than it is usual in a paper.
 
 \section{Outline}
-In the following, the theory neccessary for understanding the model for phonons
-in the ballistic regime, namely elastic wave propagation is introduced. Also,
-Methods for computing the transmission through a system of layers are presented
-and some general properties of such structures are described.
+In the following, the theory of phononic heat conduction in the ballistic
+regime is introduced with focus on explaining the solving methods used in the
+developed simulation tool. This requires a detailed consideration of elastic
+wave mechanics. Also, the simulation tools for computing the transmission
+through a system of layers are presented and some general properties of such
+structures are described.
 The code structure of the simulation that was written on basis of
-that theory is presented afterwards with the aim of providing an overview over 
+that theory is presented afterwards with the aim of providing an overview over
 functionalities and scope of application.

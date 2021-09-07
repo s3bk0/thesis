@@ -1,2 +1,76 @@
-\section{Verificaion of Simulation Results}
-\subsection{Scattering at a Single Interface}
+This chapter will present arguments for the validity of the results that can be
+calculated with the implemented methods. At the same time the properties of
+some setups are presented. All plots are generated in the
+python notebook \texttt{verifications.ipynb}.
+
+\section{Scattering at a Single Interface}
+In the most simple configuration, a single interface occurs at the boundary of
+the two half spaces above and below the xy-plane.
+The calculations for a transition from Copper to Silicon is shown in figure
+\ref{fig:singleTH} and figure \ref{fig:restsingle} in the appendix. In the case
+of transversal horizontal polarisation, the analytical solution from equation
+\ref{eq:theoSingleTH} yields the exact same results, as direct comparison of
+the calculated values shows. For the other modes, no explicit analytical
+solutions were found. However, the fulfilled sanity check for all results
+gives a good argument for their validity.
+
+Additionally, the behaviour of the transmittivity at the critical angles for
+total reflection can be considered. Recalling that these mark the angles at
+which a resulting mode changes to evanescent wave propagaion, we can calculate
+critical angles for all possible transitions between incoming and outgoing
+modes. These depend only on longitudinal and transversal velocities so that
+the angles for all reasonable combinations are shown in table
+\ref{tab:critangles}
+The critical angles for TH polarised waves are a subset of the critical angles
+of the shown angles for L an TV polarised waves.
+
+Comparing the obtained angles with the plots, we can see that these can explain
+the kinks in the funtionality of reflectivity and transmittivity. For example,
+in case of a longitudinal incident wave, the critical angle denotes the total
+reflection at the transmitted TV mode. Despite this, the transmitted intensity
+does not drop completely to zero as the transmitted longitudinal wave can still
+transport energy.
+\begin{table}[t]
+    \centering
+    \begin{tabular}{c||c|c|c|c}
+                   & $c_{L,Cu}$  & $c_{T,Cu}$ & $c_{L,Si}$  & $c_{T,Si}$
+        \\ \hline
+        $c_{L,Cu}$ & \ang{90. }  & -          & \ang{34.42} & -
+        \\
+        $c_{T,Cu}$ & \ang{28.62} & \ang{90}   & \ang{15.71} & \ang{29.06}
+    \end{tabular}
+    \caption{critical angles for transition from Copper to Silicon depending on
+        velocity of the incoming mode (rows) and outgoing mode (columns)}
+    \label{tab:critangles}
+\end{table}
+
+\begin{figure}[b]
+    \centering
+    \includegraphics[width=\textwidth]{../pictures/singleinterface/TH_CuSi}
+    \caption{Scattering of TH polarised waves at a single interface}
+    \label[]{fig:singleTH}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}{\textwidth}
+        \includegraphics[width=\textwidth]{/singleinterface/Lt_CuSi}
+        \caption{Scattering of Lt polarised waves at a single interface}
+    \end{subfigure}\\ \vspace{0.75cm}
+    \begin{subfigure}{\textwidth}
+        \includegraphics[width=\textwidth]{/singleinterface/TV_CuSi}
+        \caption{Scattering of TV polarised waves at a single interface}
+    \end{subfigure}
+    \caption{}
+    \label[]{fig:restsingle}
+\end{figure}
+
+\section{Multilayer Structures}
+Here an example multilayer structure is presented. According to
+\cite{Satoh2005} multilayer structures consisting of low impedance
+$\si{SiO_2}$ and high impedance metals like tungsten or molybdenum are
+suitable for fabrication of acoustic resonators. For that reason the following
+plots present simulation result of bragg reflector with a unit cell of
+$\si{SiO_2}$ and Mo which is repeated eight times and with an embedding layer of
+$\si{SiO_2}$.
+\todo{description not complete}
