@@ -1,1 +1,37 @@
-To conclude, a working simulation framework could be developed. 
+To conclude, a working simulation framework could be developed. In the course
+of developement, the numerical issues previously encountered by Miles could be
+mostly removed and the functionality of the calculation over all angles was
+established. Several kinds
+of validation, like the check for energy conservation or relations at a single
+interface reason confidence in the correctness of all not directly verified
+computations. Also, the sanity check shows to be very capable of detecting
+numerical instabilities without larger effort.
+
+Although these capabilities are enough to fully calculate larger systems,\\
+\ttt{TransferMethodMP()} is multiple times slower than \ttt{SingleLSEMethod()}
+so that it may be of interest to optimise the methods calculating the
+transmission. One way could be, to take advantage of packages like \ttt{numba}
+that are able to speed up python code. In that case, it is necessary to
+reimplement the optimised method without usage of custom functions or objects
+except for \ttt{numpy} types as these can not be handled by \ttt{numba}.
+
+In the future, this simulation can be used to develop a structure that is able
+to decrease the total expected heat flux to few mW. The theoretical foundations
+for a systematical search were given in this work. One could think about using
+the knowledge of the behaviour of the spectral bandgaps for normal incidence
+to stack several reflectors to a fully reflecting structure. If this can be
+achieved for normal incidence, the intensity for incident waves for higher
+angles will be reflected at high rates as well. However, to obtain certainty it
+must be validated by simulation.
+
+The selection of the right materials will also be a relevant question, which
+can be also conducted by the given knowledge for the reflection at single
+interfaces. Some of those ideas are also regarded in the Jupyter notebook
+\ttt{dbr\_search.ipynb}
+
+Ultimately, a found structure could be fabricated and its thermal conductance
+could be measured. In that setting it would be of interest to investigate the
+influence of surface roughness of the interfaces on the coherence of the
+phonons. The possibility of surface roughness could also be implemented into
+the existing model by following the generalised transfer matrix method
+presented in \cite{Katsidis2002}.

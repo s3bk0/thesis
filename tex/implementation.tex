@@ -168,7 +168,7 @@ the sparse system solver \ttt{spsolve()} from \ttt{scipy.sparse.linalg} which
 improves the performance further.
 
 As the LSE Method also encounters numerical problems for larger structures
-(more than 30 layers for angles above $\ang{60$}) a
+(more than 30 layers for angles above $\ang{60}$) a
 fourth attempt was made by using the module \ttt{mpmath}. It provides
 types with arbitrary numerical precision. A full implementation of the Transfer
 Matrix Method with \ttt{mpmath} is given by \ttt{TransferMethodMP()} and
@@ -177,6 +177,10 @@ analogy to the existing TMM implementation.
 The \ttt{mpmath} approach is able to deliver numerically stable results as
 expected. However, the computation time is significantly higher than for all
 other methods, so that it is only used in cases, where the other methods fail.
+
+The advantage of \ttt{mpmath} can be also used to improve
+\ttt{SingleLSEMethod()}. If the parameter \ttt{optimizing} is enabled, the
+method switches to \ttt{TransferMP)()} if the values are not sane.
 
 In addition, another optimisation can be implemented. All these algorithms rely
 on several subroutines like for example \ttt{Layer.getConditionMatrix()}, which
@@ -236,7 +240,10 @@ which is done by \ttt{Reflector.spectralTransmission()} using the method
 that the resulting values represent spectral transmittivity in z-direction.
 The total heat flow is calculated with \ttt{transmittedPower()} by evaluating
 the described integrant at the same frequencies as the spectral transmittivity
-and integrating it analogously to the angles. \todo{mention $\Delta P$}
+and integrating it analogously to the angles. Also,
+$\Delta P=\frac{P_{t}}{P_{in}}$ with transmitted heat flow $P_{t}=J_z$ and
+incoming heat flow $P_{in}$ is calculated, which gives a simple measure of the
+reflectors efficiency.
 
 The intermediate results of this calculation may be of interest as well. For
 this purpose, \ttt{plotfunctions.py} provides a number of plot functions and
@@ -280,7 +287,6 @@ where thickness of layer 1 varies along the first axis and the thickness of
 layer 2 varies along the second axis. This matrix is again represented as
 colorplot. This plot was not used here as it is very time consuming to compute
 and has only limited significance.
-
 
 % \subsection{Example Workflow}
 % As a practical summary of the previous description, a short 
