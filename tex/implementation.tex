@@ -25,12 +25,13 @@ to reduce the number of parameters to be passed to the next method.
 The main idea for the \texttt{Layer} class is to wrap the important material
 parameters $\lambda$, $\mu$ and $\rho$ passed from a material parameter
 function and to convert them internally to sound velocities $c_i$ and elastic
-tensor. In addition, each object stores its thickness and material name. The
-latter is useful for fast identification of the layer material and debugging
-outputs.
+tensor $C_{ijkl}$. In addition, each object stores its thickness and material
+name. The latter is useful for fast identification of the layer material and
+debugging outputs.
 Also, it contains several methods for calculation of Layer specific
 quantities. One of those quantities is \texttt{getConditionMatrix()} which
-assembles the condition matrix $\uuline{M}_n$ for a given incident angle
+assembles the condition matrix $\uuline{M}_n$ from equation
+\ref{eq:statevector} for a given incident angle
 $\theta$ and frequency $\omega$. In the process, the layer specific wave vector
 $\uline{k}_i$ is calculated by \texttt{Layer.getK()} for every mode from
 incident angle and frequency. The phase velocities are accessed from the
@@ -54,7 +55,7 @@ extracted and stored internally in a separate list which is used exclusively
 over the object stored thicknesses. The first and the last given
 layer are assumed to embed the remaining layers, so that their thickness
 defined in the \texttt{Layer} object has no meaning. Thus the thicknesses of
-first and last layer are set to $0$ in \texttt{Reflector.\_\_init\_\_()} for
+first and last layer are set to $0$ the constructor of \ttt{Reflector} for
 convenience in the simulation functions. The thickness configuration can be
 changed with \texttt{setThicknesses()} and a full text representation of the
 current configuration can be generated with \texttt{info()}.
@@ -71,11 +72,16 @@ $\uline{t}_0$. The returned values are the transmission and reflection
 coefficients $\uline{t}_N$ and $\uline{r}_0$ as well as transmittivity
 $\mathcal{T}$ and reflectivity $\mathcal{R}$. The last two quantities
 are evaluated by calling \ttt{Reflector.Intensities()} in turn relies on
-the layer specific intensites from \ttt{Layer.Intensity()}.
+the layer specific intensites from \ttt{Layer.Intensity()}. It should be noted
+that the implementation also considers that modes with complex wave vector
+$\underline{k}$
+should not contribute to the output intensity. This is implemented as
+additional factor $|e^{i|\underline{k}|d}|$ with an arbitrary but high $d$ in
+\ttt{Layer.Intensity()}.
 
 To explain the coexistence of the methods, it is helpful to describe and
-analyse them in the order of their development. The challenge here was not to
-get a working implementation, but an implementation that is able to produce
+analyse them in the order of their development. The challenge here was not only
+to get a working implementation, but an implementation that is able to produce
 valid results in convenient time for the problem described in the introduction.
 
 One important tool for validating the obtained transmittivity values is the
@@ -99,16 +105,18 @@ sanity check, a significant limitation occurs for layer structures with more
 than 6 interfaces and frequencies over a few GHz. The sanity of the values of
 such configurations begins to decay for large angles. Large regions in angle
 frequency space establish, where the resulting values are covered by a strong
-noise leading to values of almost diverging magnitude. Examples of that
-behaviour are shown in the appendix.
+noise leading to values of almost diverging magnitude.	Examples of that
+behaviour are shown in the appendix. In extreme cases this
+leads to ill conditioning of $\uuline{R}$ from equation \ref{eq:TMMcoeffsr} so
+that it is not invertible anymore.
 
 It is assumed that this is caused during calculation of very large and very
 small values with limited precision. \todo[color=LightGreen]{more specific
     explanation?}
-This especially occurs in the propagation matrix $\uuline{P}_n$, which is
+This especially occurs in the propagation matrix $\uuline{P}_n$ from equation
+\ref{eq:PmatTMM}, which is
 responsible for the propagation of the coefficients through a layer. It
-contains
-both large and small
+contains both large and small
 values in the case of evanescent waves. The wave vector adopts
 a negative complex part so that the lower diagonal entries increase
 exponentially with layer thickness while the upper diagonal entries decrease
@@ -117,18 +125,17 @@ with layer thickness.
 The effect of the nature of $\uuline{P}$ was investigated by analysing
 the continuity in $\theta$ of matrix entries with a debugging tool. The
 intention was to find the operation that causes the most numerical instability,
-which shows in non continuous functionality of the result.
-
+which shows in a  non continuous functionality of the result.
 However, it was found that the mere composition to the complete transfer
 matrix $\uuline{S}$ is less relevant for that effect than the final calculation
 of the coefficients in equations \ref{eq:TMMcoeffsr} and \ref{eq:TMMcoeffst}.
-These are unfortunately essential to the Transfer Matrix Method.
+Unfortunately, these are essential to the Transfer Matrix Method.
 
 As other explanations over the source of the numerical instabilities could not
 be verified and after several unsuccessful attempts of improving numerical
-stability, the lse method was considered. It represents the rather heuristic
-approach to solve the system of equations in one step with the benefit, that
-the exponentials with magnifying exponential can be reformulated as attenuating
+stability, the LSE method was considered. It represents the rather heuristic
+approach to solve the system of equations in one step. The benefit is that
+the exponentials with magnifying exponent can be reformulated as attenuating
 exponential functions. Therefore, the numerical issues could be improved in a
 manner that the required computations can be undertaken successfully.
 
@@ -160,7 +167,8 @@ frequency to \ttt{LSEMethod()}. For that case it was also optimised by using
 the sparse system solver \ttt{spsolve()} from \ttt{scipy.sparse.linalg} which
 improves the performance further.
 
-As the LSE Method also encounters numerical problems for larger structures a
+As the LSE Method also encounters numerical problems for larger structures
+(more than 30 layers for angles above $\ang{60$}) a
 fourth attempt was made by using the module \ttt{mpmath}. It provides
 types with arbitrary numerical precision. A full implementation of the Transfer
 Matrix Method with \ttt{mpmath} is given by \ttt{TransferMethodMP()} and
@@ -176,13 +184,25 @@ calculates the matrix $\uuline{M}_n$ from equation \ref{eq:defSn}. In this and
 other cases, the function is called several times with the same arguments due
 to the fact, that the propagating angles in each Layer are equal in each Layer
 of the same type. For this reason, the results of these subroutines are cached.
-As conventional caching decorators require the function parameters to be
-hashable and this does not apply for \ttt{numpy} arrays, caching was
-implemented by hand. The essential part of this are the hash function
-\ttt{Hash()} which converts an arbitrary number of parameters to a hashable
-tuple. This hash is then used as key in a dictionary for the results of the
+
+Conventional caching decorators require the function parameters to be
+hashable, but this does not apply for \ttt{numpy} arrays. For that reason,
+caching was implemented by hand. The essential part of this are the hash
+function \ttt{Hash()} which converts an arbitrary number of parameters to a
+hashable tuple. This hash is then used as key in a dictionary for the results
+of the
 hashed function. For each cached function there is such a dictionary stored in
 either \ttt{Reflector} or \ttt{Layer}.
+
+In further developement, this method may cause errors, if for example a new
+parameters are introduced in \ttt{Reflector} or \ttt{Layer} that influence the
+calculation. If such a parameter is changed during runtime, the results of the
+alorithm may not change at all or change so that the sanity check is not
+fulfilled anymore. In such a case, this parameter could also be provided to
+\ttt{Hash()} to create new dictionary entries in case it changes.
+
+A different, maybe preffered solution would be to develop or use a more
+sophisticated caching method, that is more stable to such cases.
 
 % The concrete implementation is as follows. \ttt{TransferMethod()} called with
 % arrays of circular frequencies $\omega$, incident angles $\theta$ and the
@@ -226,7 +246,7 @@ It produces three subplots. In the first, the absolute values of the reflection
 coefficients are shown which represent the reflected amplitudes. The plot below
 does the same for the transmission coefficients. In the lowermost plot the
 resulting transmittivity and reflectivity are shown as functions of
-incident angle for a fixed frequency. Also their sum is displayed as proof of 
+incident angle for a fixed frequency. Also their sum is displayed as proof of
 correctness of the values. This can be viewed for example in figure
 \todo{Angular Plot reference}.
 
@@ -261,7 +281,7 @@ layer 2 varies along the second axis. This matrix is again represented as
 colorplot. This plot was not used here as it is very time consuming to compute
 and has only limited significance.
 
+
 % \subsection{Example Workflow}
 % As a practical summary of the previous description, a short 
 \todo[color=LightGreen]{ Example Workflow still advantageous?}
-cite

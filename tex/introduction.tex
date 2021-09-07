@@ -1,19 +1,21 @@
 In recent years quantum computing technology has been of rising
 interest to scientists and the public. The early steps of exploiting the nature
-of quantum states by fabricating and controlling individual qubits [refs] are
-overcome and computational advantage of quantum processors over
+of quantum states by fabricating and controlling individual qubits  are
+overcome \cite{Leonard2019} and computational advantage of quantum processors
+over
 classical computers, has already been demonstrated in some cases
 \cite{Arute2019}. With scalable concepts for many
-different implementations \cite{Cirac2000,Brecht2016,Bluhm2019,Lao2018} it is
-only a matter of time until quantum computers can be used commercially.
+different implementations \cite{Cirac2000} \cite{Brecht2016} \cite{Bluhm2019}
+\cite{Lao2018}	it is only a matter of time until quantum computers can be used
+commercially.
 
 However, there are still a some hurdles to overcome before current setups are
 at this level. One of them is to reduce the decoherence time. It is crucial for
 the execution of long operations or algorithms and strongly
-depends on external conditions like for example, the influence of thermal
+depends on external conditions like, for example, the influence of thermal
 radiation consisting of photons or heat conduction from phonons or
-electrons[refs].\todo{Bin leider nicht mehr dazu gekommen hier sinnvoll
-    weiterzumachen} In solid state qubits, heat transfer by phonons is mostly
+electrons\cite{Ferraro2019}.
+In solid state qubits, heat transfer by phonons is mostly
 enabled by electronics connected to the chip.
 The reduction of the decoherence time caused from heat conduction to the qubit
 could be solved by an intermediate medium with very low thermal
@@ -21,35 +23,26 @@ conductivity shielding the chip from thermal phonons.
 
 \section{Superlattice Structures for Thermal Isolation}
 One possible approach to
-construct such a medium is by developing a superlattice structure that
-uses the mechanics of coherent phonon heat conduction. This concept exploits
-the properties of coherent phonons as coherent elastic waves and has proven
-to be effective for control of heat conduction at low temperatures
-    [LuckyanovaGarg]. The underlying theory of this concept focuses on a
+construct such a medium is a superlattice structure of alternating layers of
+different materials whose phononic heat conduction is minimized for coherent
+heat phonons. This concept exploits
+the properties of coherent phonons modelled as coherent elastic waves and has
+proven to be effective for control of heat conduction at low temperatures
+\cite{Luckyanova2012}. The underlying theory of this concept focuses on a
 special case of the macroscopic theory of heat conduction, where heat flow is
 explained as diffusive scattering of phonons between regions of different
 temperatures.
-However, the presented concept relies on interference effects of scattering
-at the constructed interfaces, so that such structures are significantly
-smaller than the phonon mean free path.
+Typically the phase of a phonon changes through scattering so that interference
+effects are not observable at large scale structures. This means that the
+described layer structures need to have thicknesses far smaller than
+the phonon mean free path. This case is known as ballistic regime.
 
 Further, such superlattices are known from optics as Distributed Bragg
 reflectors and usually consist of layer structures with alternating refraction
 indices. These are known to have so called spectral band gaps which are
 spectral regions where the wave is fully reflected.
-In optics this structure is usually used as highly efficient reflector for
+In optics, this structure is usually used as highly efficient reflector for
 electromagnetic waves from a defined angle.
-
-The aim of this work will be to investigate practicable reflector
-configurations by developing a reusable simulation of elastic wave propagation
-through arbitrary multilayer structures. With this tool some configurations
-with different materials will be considered so that only an acceptable heat
-flux can pass the reflector. %porosity
-Based on the cooling power of current kryostats it is estimated, that the
-transmitted heat flux needs to be in the order of $10\ \si{mW}$. Also,
-for any power considerations the upper temperature is assumed to be
-$T=1.8\si{K}$
-which is a temperature that can be achieved comfortably with current methods.
 
 In contrast to the optical case, the complete spectrum of thermal
 radiation for all incident angles $\theta$ and polarisation modes $i$ is
@@ -59,17 +52,27 @@ relevant for the total expected heat flow through the reflector
     \mathcal{T}_i(\omega, \theta, \phi)\ g_i(\omega)\ n_B(\omega, T)\
     \hslash \omega\  c_i\cos \theta \dd{\omega} \dd{\theta}\dd{\phi}
 \end{equation}
-which will be justified later. The integrant
+which will be justified later. The integrand
 consists of the transmittivity function $\mathcal{T}_i(\omega, \theta, \phi)$
 which is defined as proportion of transmitted intensity and can be interpreted
 here as transmission probability density. $g_i(\omega)
     n_B(\omega,T)\hslash\omega$ is the spectral energy density per unit volume
 of the phononic thermal radiation with Bose distribution $n_B$ and density of
-states $g_i$. Factoring this with the phonon velocity in z-direction $c_i\
+states $g_i$. Mulitiplying this with the phonon velocity in z-direction $c_i\
     \cos\theta$ yields the spectral radiance of the uppermost medium which is
 the emitted power per frequency and spatial angle in z-direction. The exact
 form of $g_i(\omega)$ and $\omega_c$ is given by the Debye model which can be
 applied here.
+
+Based on the cooling power of current cryostats it is estimated, that the
+transmitted heat flux needs to be on the order of $10\ \si{mW}$. Also,
+for any power considerations the upper temperature is assumed to be
+$T=1.8\si{K}$
+which is a temperature that can be achieved comfortably with current methods.
+
+The aim of this work will be to investigate practicable reflector
+configurations by developing a reusable simulation of elastic wave propagation
+through arbitrary multilayer structures.  %porosity
 
 \section{Previous Work}
 The described aim of developing a simulation environment for elastic wave
@@ -91,9 +94,11 @@ detail than it is usual in a paper.
 In the following, the theory of phononic heat conduction in the ballistic
 regime is introduced with focus on explaining the solving methods used in the
 developed simulation tool. This requires a detailed consideration of elastic
-wave mechanics. Also, the simulation tools for computing the transmission
-through a system of layers are presented and some general properties of such
+wave mechanics. Also, the simulation methods for computing the transmission
+through a system of layers are derived and some general properties of such
 structures are described.
 The code structure of the simulation that was written on basis of
 that theory is presented afterwards with the aim of providing an overview over
-functionalities and scope of application.
+functionalities and scope of application. Further these methods are validated
+for single interface scattering and its capabilities are demonstrated on an
+exemplary structure.

@@ -1,6 +1,7 @@
 This chapter will present arguments for the validity of the results that can be
 calculated with the implemented methods. At the same time the properties of
-some setups are presented. All plots are generated in the
+some setups are presented. All plots related to verification are generated in
+the
 python notebook \texttt{verifications.ipynb}.
 
 \section{Scattering at a Single Interface}
@@ -30,7 +31,7 @@ in case of a longitudinal incident wave, the critical angle denotes the total
 reflection at the transmitted TV mode. Despite this, the transmitted intensity
 does not drop completely to zero as the transmitted longitudinal wave can still
 transport energy.
-\begin{table}[t]
+\begin{table}[p]
     \centering
     \begin{tabular}{c||c|c|c|c}
                    & $c_{L,Cu}$  & $c_{T,Cu}$ & $c_{L,Si}$  & $c_{T,Si}$
@@ -44,25 +45,26 @@ transport energy.
     \label{tab:critangles}
 \end{table}
 
-\begin{figure}[b]
+\begin{figure}[p]
     \centering
-    \includegraphics[width=\textwidth]{../pictures/singleinterface/TH_CuSi}
-    \caption{Scattering of TH polarised waves at a single interface}
-    \label[]{fig:singleTH}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \begin{subfigure}{\textwidth}
-        \includegraphics[width=\textwidth]{/singleinterface/Lt_CuSi}
-        \caption{Scattering of Lt polarised waves at a single interface}
+    \begin{subfigure}{0.8\textwidth}
+        \includegraphics[width=\textwidth]{/singleinterface/TH_CuSi}
+        \caption{Scattering of TH polarised waves at a single interface}
+        \label{fig:singleL}
     \end{subfigure}\\ \vspace{0.75cm}
-    \begin{subfigure}{\textwidth}
+    \begin{subfigure}{0.8\textwidth}
         \includegraphics[width=\textwidth]{/singleinterface/TV_CuSi}
         \caption{Scattering of TV polarised waves at a single interface}
     \end{subfigure}
     \caption{}
-    \label[]{fig:restsingle}
+    \label{fig:restsingle}
+\end{figure}
+
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=\textwidth]{../pictures/singleinterface/TH_CuSi}
+    \caption{Scattering of L polarised waves at a single interface}
+    \label{fig:singleL}
 \end{figure}
 
 \section{Multilayer Structures}
@@ -71,6 +73,36 @@ Here an example multilayer structure is presented. According to
 $\si{SiO_2}$ and high impedance metals like tungsten or molybdenum are
 suitable for fabrication of acoustic resonators. For that reason the following
 plots present simulation result of bragg reflector with a unit cell of
-$\si{SiO_2}$ and Mo which is repeated eight times and with an embedding layer of
-$\si{SiO_2}$.
-\todo{description not complete}
+$\si{SiO_2}$ and Mo which is repeated eight times and with an embedding layer
+of $\si{SiO_2}$. The thicknesses are chosen to be a quarter wavelength with
+regards to longitudinal polarisation. With longitudinal velocity
+$c_{L,SiO2}=8478\si{\frac{m}{s}}$
+and transversal velocity $c_{T,SiO2} 4725\si{\frac{m}{s}}$ of $\si{SiO_2}$ and
+velocities $c_{L,W} = 5160\si{\frac{m}{s}}$ and $ c_{T,W} = 2843\si{\frac{m}{s}}$ 
+of tungsten  these thicknesses are
+$d_1=13.98\si{nm}$ for $\si{SiO_2}$ and $d_2 = 19.16\si{nm}$ for tungsten.
+The overwiev plots for calculations with all angles are shown in figures
+\ref{fig:totalMultiL} to \ref{fig:totalMultiTV} for each mode.
+
+\todo{Vielleicht schaffe ich hier noch nen den Fall mit einem einfallenden Winkel}
+
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=\textwidth]{Example2/L}
+    \caption{Scattering of TH polarised waves at a single interface}
+    \label{fig:totalMultiL}
+\end{figure}
+
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=\textwidth]{Example2/TH.png}
+    \caption{Scattering of TH polarised waves at a single interface}
+    \label{fig:totalMultiTH}
+\end{figure}
+
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=\textwidth]{Example2/TV.png}
+    \caption{Scattering of TV polarised waves at a single interface}
+    \label{fig:totalMultiTV}
+\end{figure}
