@@ -14,9 +14,9 @@ considered for usage in a reflector structure. Each entry is a python function
 that returns density $\rho$ and elastic constants $\lambda$ and $\mu$. Most
 databases accessible through the internet contain different elastic constants
 like Young`s Modulus or Poisson´s ratio, so that those are converted with help
-of a formula table as in \cite[30]{kundu2012ultrasonic} \todo{Formeln in
-    Theorieteil?}. The exact materials and their sources are listed in table
-\todo{reference to material parameters}
+of a formula table as in \cite[30]{kundu2012ultrasonic}.
+The exact materials and their sources are listed in table \ref{tab:materials}
+
 
 The file \texttt{dbr.py} contains the most important simulation tools. Those
 functions are structured in two classes, \texttt{Reflector} and \texttt{Layer}
@@ -111,22 +111,19 @@ leads to ill conditioning of $\uuline{R}$ from equation \ref{eq:TMMcoeffsr} so
 that it is not invertible anymore.
 
 It is assumed that this is caused during calculation of very large and very
-small values with limited precision. \todo[color=LightGreen]{more specific
-    explanation?}
+small values with limited precision.
 This especially occurs in the propagation matrix $\uuline{P}_n$ from equation
 \ref{eq:PmatTMM}, which is
 responsible for the propagation of the coefficients through a layer. It
-contains both large and small
+contains both exponentially large and small
 values in the case of evanescent waves. The wave vector adopts
 a negative complex part so that the lower diagonal entries increase
 exponentially with layer thickness while the upper diagonal entries decrease
 with layer thickness.
 
 The effect of the nature of $\uuline{P}$ was investigated by analysing
-the continuity in $\theta$ of matrix entries with a debugging tool. The
-intention was to find the operation that causes the most numerical instability,
-which shows in a  non continuous functionality of the result.
-However, it was found that the mere composition to the complete transfer
+the continuity in $\theta$ of matrix entries with a debugging tool.
+It was found that the mere composition to the complete transfer
 matrix $\uuline{S}$ is less relevant for that effect than the final calculation
 of the coefficients in equations \ref{eq:TMMcoeffsr} and \ref{eq:TMMcoeffst}.
 Unfortunately, these are essential to the Transfer Matrix Method.
@@ -157,7 +154,7 @@ with the package \ttt{sparse} which is compatible with \ttt{numpy} and
 implements much more efficient storage of matrices with many zero valued
 elements. Although the present matrices fullfil this criterion, the assembly of
 those matrices from numpy dense matrices prooved too slow in comparison to the
-gained speed. This is possibly related to the circumstance, that the module
+gained speed. This is possibly related to the circumstance that the module
 wraps the computational methods of \ttt{scipy.sparse.linalg} which only uses
 two-dimensional sparse matrices.
 
@@ -180,13 +177,13 @@ other methods, so that it is only used in cases, where the other methods fail.
 
 The advantage of \ttt{mpmath} can be also used to improve
 \ttt{SingleLSEMethod()}. If the parameter \ttt{optimizing} is enabled, the
-method switches to \ttt{TransferMP)()} if the values are not sane.
+method switches to \ttt{TransferMP()} if the values are not sane.
 
 In addition, another optimisation can be implemented. All these algorithms rely
 on several subroutines like for example \ttt{Layer.getConditionMatrix()}, which
 calculates the matrix $\uuline{M}_n$ from equation \ref{eq:defSn}. In this and
 other cases, the function is called several times with the same arguments due
-to the fact, that the propagating angles in each Layer are equal in each Layer
+to the fact that the propagating angles in each Layer are equal in each Layer
 of the same type. For this reason, the results of these subroutines are cached.
 
 Conventional caching decorators require the function parameters to be
@@ -198,15 +195,15 @@ of the
 hashed function. For each cached function there is such a dictionary stored in
 either \ttt{Reflector} or \ttt{Layer}.
 
-In further developement, this method may cause errors, if for example a new
+In further development, this method may cause errors, if, for example, a new
 parameters are introduced in \ttt{Reflector} or \ttt{Layer} that influence the
 calculation. If such a parameter is changed during runtime, the results of the
-alorithm may not change at all or change so that the sanity check is not
+algorithm may not change at all or change so that the sanity check is not
 fulfilled anymore. In such a case, this parameter could also be provided to
 \ttt{Hash()} to create new dictionary entries in case it changes.
 
-A different, maybe preffered solution would be to develop or use a more
-sophisticated caching method, that is more stable to such cases.
+A different, maybe preferred solution would be to develop or use a more
+sophisticated caching method that is more stable to such cases.
 
 % The concrete implementation is as follows. \ttt{TransferMethod()} called with
 % arrays of circular frequencies $\omega$, incident angles $\theta$ and the
@@ -243,7 +240,7 @@ the described integrant at the same frequencies as the spectral transmittivity
 and integrating it analogously to the angles. Also,
 $\Delta P=\frac{P_{t}}{P_{in}}$ with transmitted heat flow $P_{t}=J_z$ and
 incoming heat flow $P_{in}$ is calculated, which gives a simple measure of the
-reflectors efficiency.
+reflectors´ efficiency.
 
 The intermediate results of this calculation may be of interest as well. For
 this purpose, \ttt{plotfunctions.py} provides a number of plot functions and
@@ -254,12 +251,12 @@ coefficients are shown which represent the reflected amplitudes. The plot below
 does the same for the transmission coefficients. In the lowermost plot the
 resulting transmittivity and reflectivity are shown as functions of
 incident angle for a fixed frequency. Also their sum is displayed as proof of
-correctness of the values. This can be viewed for example in figure
-\todo{Angular Plot reference}.
+correctness of the values. This can be viewed for example in figure 
+\ref{fig:singleL}.
 
 In comparison to that, \ttt{plotOverview()} accepts transmittivity values from
 a region in angle-frequency space as two-dimensional array and is able to
-provide a three-part plot as in figure \todo{overview plot reference}. Here the
+provide a three-part plot as in figure \ref{fig:totalMultiTV}. Here the
 upper left field represents a color plot of the sanity of the transmittivity
 over frequency and angle axis. Dots coded as $1$ denote that the transmittivity
 at the corresponding angle and frequency was calculated correctly. At the
@@ -273,7 +270,7 @@ power.
 For each plot a boolean parameter is passed to the function to enable or
 disable the appearance of each plot in the output.
 
-These plot functions also exist in form of a script like function, that
+These plot functions also exist in form of a script like function that
 generates the necessary transmission values by itself and directly provide the
 output as plot.
 
@@ -288,6 +285,6 @@ layer 2 varies along the second axis. This matrix is again represented as
 colorplot. This plot was not used here as it is very time consuming to compute
 and has only limited significance.
 
-% \subsection{Example Workflow}
-% As a practical summary of the previous description, a short 
-\todo[color=LightGreen]{ Example Workflow still advantageous?}
+All described plots can be generated from \ttt{fullCalculation.py}. A step by
+step calculation is also presented. More analysis focused code is presented in
+the python notebooks \ttt{verifications.ipynb} and \ttt{dbr\_search.ipynb}.

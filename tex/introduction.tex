@@ -1,12 +1,13 @@
 In recent years quantum computing technology has been of rising
 interest to scientists and the public. The early steps of exploiting the nature
 of quantum states by fabricating and controlling individual qubits  are
-overcome \cite{Leonard2019} and computational advantage of quantum processors
+overcome \cite{Leonard2019,Crippa2019} and computational advantage of quantum
+processors
 over
 classical computers, has already been demonstrated in some cases
-\cite{Arute2019}. With scalable concepts for many
-different implementations \cite{Cirac2000} \cite{Brecht2016} \cite{Bluhm2019}
-\cite{Lao2018}	it is only a matter of time until quantum computers can be used
+\cite{Arute2019}. With scalable concepts for many,
+different implementations \cite{Cirac2000, Brecht2016, Bluhm2019, Lao2018}
+it is only a matter of time until quantum computers can be used
 commercially.
 
 However, there are still a some hurdles to overcome before current setups are
@@ -64,7 +65,7 @@ the emitted power per frequency and spatial angle in z-direction. The exact
 form of $g_i(\omega)$ and $\omega_c$ is given by the Debye model which can be
 applied here.
 
-Based on the cooling power of current cryostats it is estimated, that the
+Based on the cooling power of current cryostats it is estimated that the
 transmitted heat flux needs to be on the order of $10\ \si{mW}$. Also,
 for any power considerations the upper temperature is assumed to be
 $T=1.8\si{K}$
@@ -78,7 +79,7 @@ through arbitrary multilayer structures.  %porosity
 The described aim of developing a simulation environment for elastic wave
 propagation through multilayer structures has been already pursued by Sebastian
 Miles in the scope of a HiWi project for the institute. The level of
-developement at the time of my aquisition consisted of the two
+developement at the time of the beginning of my project consisted of the two
 implementations for the later described Transfer Matrix Method and the LSE
 Method, which could only deliver valid results for cases without mixing of
 modes at an interface and also similar numerical issues that were encountered
@@ -88,7 +89,9 @@ implementation was written independently.
 However, a large part of the theoretical foundations of the described methods
 were researched and summed up in a currently not published paper by Miles. The
 present theoretical introduction follows it roughly and is worked out with more
-detail than it is usual in a paper.
+detail than it is usual in a paper. All files described in the following are
+stored in the project repository \ttt{python-distributed\_bragg\_reflectors}
+\footnote{\url{https://git.rwth-aachen.de/qutech/python-distributed_bragg_reflectors}}
 
 \section{Outline}
 In the following, the theory of phononic heat conduction in the ballistic
