@@ -196,9 +196,9 @@ and stress tensor to a single index as in table \ref{tab:voigt}
 \begin{table}[t]
     \centering
     \begin{tabular}{cccccc}
-        $xx \rightarrow 1$ & $yy \rightarrow 2$    & $zz \rightarrow 3$    &
-        $yz=zy
-        \rightarrow 4$     & $xz=zx \rightarrow 5$ & $xy=yx \rightarrow 6$
+        $11 \rightarrow 1$ & $22 \rightarrow 2$    & $33 \rightarrow 3$    &
+        $23=32
+        \rightarrow 4$     & $13=31 \rightarrow 5$ & $12=21 \rightarrow 6$
     \end{tabular}
     \caption{Voigt notation}
     \label{tab:voigt}
@@ -360,14 +360,14 @@ depending on the propagation direction $\uline{\hat{k}} =
     e^{i(\uline{k}_T\uline{x}-\omega t)}
 \end{equation}
 In general, the polarisation vector for longitudinal polarisation
-$\uline{p}_L$ is fixed to be $\uline{\vec{k}}$. If scattering at an interface
+$\uline{p}_L$ is fixed to be $\uline{\vec{k}}_L$. If scattering at an interface
 is considered, a plane of incidence can be defined that is spanned by
 $\uline{\hat{k}}$ and the normal vector of the interface. The transversal
 polarisation vectors are then defined as transversal horizontal polarisation
 $\uline{p}_{TH}$ pointing out of the plane of incidence and transversal
 vertical polarisation $\uline{p}_{TH}$ lying in plane of incidence orthonormal
 to $\uline{\hat{k}}$, here now defined as
-$\uline{p}_{TV}=\uline{p}_L \cross \uline{p}_{TH}$. This arrangement is also
+$\uline{p}_{TV}=\uline{\hat{k}}_T \cross \uline{p}_{TH}$. This arrangement is also
 shown in a 3D coordinate system in figure 
 
 \begin{figure}[t]
@@ -445,12 +445,12 @@ In that setting, the wave vector $\uline{k}_i$ for a particular mode $i \in
 % polarisation basis
 The polarisation basis is then defined as
 \begin{align}
-    \uline{p}_L = \uline{\hat{k}} & = ( 0,\ \sin(\theta_L),\ -\cos(\theta_L)\
+    \uline{p}_L = \uline{\hat{k}}_L & = ( 0,\ \sin(\theta_L),\ -\cos(\theta_L)\
     )^T \ ,
     \\
     \uline{p}_{TH}                & = (\ 1,\ 0,\ 0)^T \ ,
     \\
-    \uline{p}_{TV}                & = \uline{\hat{k}} \cross \uline{p}_{TH}
+    \uline{p}_{TV}                & = \uline{\hat{k}}_T \cross \uline{p}_{TH}
     = ( 0,\ -\cos(\theta_{TH}), -\sin(\theta_{TH}))^T \ .
 \end{align}
 It should be noted, that despite the simplified representation in figure 
@@ -796,6 +796,12 @@ $n-1$ and $n$ can be written as
 \begin{equation}
     \uuline{M}_{n-1}\ \uline{a}_{n-1}^\prime = \uuline{M}_{n}\ \uline{a}_{n}.
 \end{equation}
+\begin{equation}
+    \begin{pmatrix} \underline{t}_n \\ \underline{r}_n \end{pmatrix}
+= \underline{\underline{M}}_n ^{-1} \underline{\underline{M}}_{n-1} 
+\begin{pmatrix} \underline{t}_{n-1} \\ \underline{r}_{n-1} \end{pmatrix} = \uuline{S}_n
+\begin{pmatrix} \underline{t}_{n-1} \\ \underline{r}_{n-1} \end{pmatrix}
+\end{equation}
 If we invert $\uuline{M}_{n}$, we can define the
 transfer matrix $S_n$ by
 \begin{equation} \label{eq:defSn}
@@ -819,19 +825,19 @@ so that the final wave coefficients $\uline{a}_N$ below the lowest interface
 are
 \begin{equation}
     \begin{pmatrix} \uline{t}_n \\ \uline{r}_n	\end{pmatrix}
-    = S\cdot  \begin{pmatrix} \uline{t}_1 \\ \uline{r}_1 \end{pmatrix} =
+    = S\cdot  \begin{pmatrix} \uline{t}_0 \\ \uline{r}_0 \end{pmatrix} =
     \begin{pmatrix}
         \uuline{T} & \uuline{C}_1 \\ \uuline{C}_2 & \uuline{R}
-    \end{pmatrix} \cdot \begin{pmatrix} \uline{t}_1 \\ \uline{r}_1
+    \end{pmatrix} \cdot \begin{pmatrix} \uline{t}_0 \\ \uline{r}_0
     \end{pmatrix}.
 \end{equation}
 Remembering that $\uline{r_n}=0$, we can solve for $\uline{r}_1$ and
 $\uline{t}_n$ and get
 \begin{align} \label{eq:TMMcoeffsr}
-    \uline{r}_1 & = -\uuline{R}^{-1}\ \uuline{C}_2\ \uline{t}_1     ,        \\
+    \uline{r}_0 & = -\uuline{R}^{-1}\ \uuline{C}_2\ \uline{t}_0     ,        \\
     \uline{t}_n & = \begin{pmatrix} \uuline{T},& \uuline{C}_1 \end{pmatrix}
-    \cdot \begin{pmatrix} \uline{t}_1 \\ -\uuline{R}^{-1}\ \uuline{C}_2\
-              \uline{t}_1\end{pmatrix} \label{eq:TMMcoeffst}.
+    \cdot \begin{pmatrix} \uline{t}_0 \\ -\uuline{R}^{-1}\ \uuline{C}_2\
+              \uline{t}_0\end{pmatrix} \label{eq:TMMcoeffst}.
 \end{align}
 %@appendix:
 % exact extraction of matrix elements,
